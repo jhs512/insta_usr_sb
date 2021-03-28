@@ -31,6 +31,18 @@ public class MpaUsrArticleController {
 		return new ResultData("S-1", id + "번 글이 작성되었습니다.", "article", article);
 	}
 
+	@RequestMapping("/mpaUsr/article/doModify")
+	@ResponseBody
+	public ResultData doModify(int id, String title, String body) {
+		boolean modified = modifyArticle(id, title, body);
+
+		if (modified == false) {
+			return new ResultData("F-1", id + "번 글이 존재하지 않습니다.", "id", id);
+		}
+
+		return new ResultData("S-1", id + "번 글이 수정되었습니다.", "article", getArticleById(id));
+	}
+
 	@RequestMapping("/mpaUsr/article/doDelete")
 	@ResponseBody
 	public ResultData doDelete(int id) {
@@ -57,20 +69,34 @@ public class MpaUsrArticleController {
 
 	// 내부
 	private void makeTestData() {
-		for ( int i = 0; i < 3; i++ ) {
-			writeArticle("제목1", "내용1");			
+		for (int i = 0; i < 3; i++) {
+			writeArticle("제목1", "내용1");
 		}
 	}
-	
-	private boolean deleteArticleById(int id) {
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				articles.remove(article);
-				return true;
-			}
+
+	private boolean modifyArticle(int id, String title, String body) {
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return false;
 		}
 
-		return false;
+		article.setUpdateDate(Util.getNowDateStr());
+		article.setTitle(title);
+		article.setBody(body);
+
+		return true;
+	}
+
+	private boolean deleteArticleById(int id) {
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return false;
+		}
+
+		articles.remove(article);
+		return true;
 	}
 
 	private int writeArticle(String title, String body) {
