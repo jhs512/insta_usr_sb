@@ -1,75 +1,48 @@
 package com.sbs.untactTeacher.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sbs.untactTeacher.dao.ArticleDao;
 import com.sbs.untactTeacher.dto.Article;
-import com.sbs.untactTeacher.util.Util;
+import com.sbs.untactTeacher.dto.ResultData;
 
 @Service
 public class ArticleService {
-	private List<Article> articles;
-	private int articleLastId;
+	@Autowired
+	private ArticleDao articleDao;
 
-	public ArticleService() {
-		articles = new ArrayList<>();
-		articleLastId = 0;
-		makeTestData();
-	}
-
-	public void makeTestData() {
-		for (int i = 0; i < 3; i++) {
-			writeArticle("제목1", "내용1");
+	public ResultData modifyArticle(int id, String title, String body) {
+		Article article = getArticleById(id);
+		
+		if ( article == null ) {
+			return new ResultData("F-1", "존재하지 않는 게시물 번호입니다.", "id", id);
 		}
+		
+		articleDao.modifyArticle(id, title, body);
+		
+		return new ResultData("S-1", "게시물이 수정되었습니다.", "id", id);
 	}
 
-	public boolean modifyArticle(int id, String title, String body) {
+	public ResultData deleteArticleById(int id) {
 		Article article = getArticleById(id);
 
 		if (article == null) {
-			return false;
+			return new ResultData("F-1", "게시물이 존재하지 않습니다.", "id", id);
 		}
 
-		article.setUpdateDate(Util.getNowDateStr());
-		article.setTitle(title);
-		article.setBody(body);
+		articleDao.deleteArticleById(id);
 
-		return true;
+		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id);
 	}
 
-	public boolean deleteArticleById(int id) {
-		Article article = getArticleById(id);
-
-		if (article == null) {
-			return false;
-		}
-
-		articles.remove(article);
-		return true;
-	}
-
-	public int writeArticle(String title, String body) {
-		int id = articleLastId + 1;
-		String regDate = Util.getNowDateStr();
-		String updateDate = Util.getNowDateStr();
-
-		Article article = new Article(id, regDate, updateDate, title, body);
-		articles.add(article);
-
-		articleLastId = id;
-
-		return id;
+	public ResultData writeArticle(String title, String body) {
+		int id = articleDao.writeArticle(title, body);
+		
+		return new ResultData("S-1", "게시물이 작성되었습니다.", "id", id);
 	}
 
 	public Article getArticleById(int id) {
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				return article;
-			}
-		}
-
-		return null;
+		return articleDao.getArticleById(id);
 	}
 }
