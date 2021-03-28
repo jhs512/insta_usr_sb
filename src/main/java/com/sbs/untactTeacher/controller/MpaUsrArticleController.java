@@ -19,6 +19,7 @@ public class MpaUsrArticleController {
 	public MpaUsrArticleController() {
 		articles = new ArrayList<>();
 		articleLastId = 0;
+		makeTestData();
 	}
 
 	@RequestMapping("/mpaUsr/article/doWrite")
@@ -28,6 +29,48 @@ public class MpaUsrArticleController {
 		Article article = getArticleById(id);
 
 		return new ResultData("S-1", id + "번 글이 작성되었습니다.", "article", article);
+	}
+
+	@RequestMapping("/mpaUsr/article/doDelete")
+	@ResponseBody
+	public ResultData doDelete(int id) {
+		boolean deleted = deleteArticleById(id);
+
+		if (deleted == false) {
+			return new ResultData("F-1", id + "번 글이 존재하지 않습니다.", "id", id);
+		}
+
+		return new ResultData("S-1", id + "번 글이 삭제되었습니다.", "id", id);
+	}
+
+	@RequestMapping("/mpaUsr/article/getArticle")
+	@ResponseBody
+	public ResultData getArticle(int id) {
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return new ResultData("F-1", id + "번 글은 존재하지 않습니다.", "id", id);
+		}
+
+		return new ResultData("S-1", article.getId() + "번 글 입니다.", "article", article);
+	}
+
+	// 내부
+	private void makeTestData() {
+		for ( int i = 0; i < 3; i++ ) {
+			writeArticle("제목1", "내용1");			
+		}
+	}
+	
+	private boolean deleteArticleById(int id) {
+		for (Article article : articles) {
+			if (article.getId() == id) {
+				articles.remove(article);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private int writeArticle(String title, String body) {
@@ -43,31 +86,12 @@ public class MpaUsrArticleController {
 		return id;
 	}
 
-	@RequestMapping("/mpaUsr/article/getArticle")
-	@ResponseBody
-	public ResultData getArticle(int id) {
-		Article article = getArticleById(id);
-
-		if (article == null) {
-			return new ResultData("F-1", id + "번 글은 존재하지 않습니다.", "id", id);
-		}
-
-		return new ResultData("S-1", article.getId() + "번 글 입니다.", "article", article);
-	}
-
 	private Article getArticleById(int id) {
 		for (Article article : articles) {
 			if (article.getId() == id) {
 				return article;
 			}
 		}
-
-		/*
-		 * for ( int i = 0; i < articles.size(); i++ ) { Article article =
-		 * articles.get(i);
-		 * 
-		 * if ( article.getId() == id ) { return article; } }
-		 */
 
 		return null;
 	}
