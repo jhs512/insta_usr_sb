@@ -12,6 +12,8 @@ public interface ArticleDao {
 	void writeArticle(@Param("boardId") int boardId, @Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
 
 	Article getArticleById(@Param("id") int id);
+	
+	int getLastInsertId();
 
 	void deleteArticleById(@Param("id") int id);
 }
