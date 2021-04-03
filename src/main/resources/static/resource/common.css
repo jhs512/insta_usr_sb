@@ -1,3 +1,282 @@
-body {
-	background-color: red;
+/* 폰트적용 - 시작 */
+@font-face {
+  font-family: "LotteMartDream";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2")
+      format("woff2"),
+    url("//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff")
+      format("woff");
 }
+
+@font-face {
+  font-family: "LotteMartDream";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2")
+      format("woff2"),
+    url("//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "LotteMartDream";
+  font-style: normal;
+  font-weight: 300;
+  src: url("https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2")
+      format("woff2"),
+    url("//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff")
+      format("woff");
+}
+
+html > body {
+  font-family: "LotteMartDream", sans-serif;
+}
+/* 폰트적용 - 끝 */
+
+/* 유틸 - 시작 */
+.row-span-7 {
+  grid-row: span 7 / span 7;
+}
+
+.row-span-8 {
+  grid-row: span 8 / span 8;
+}
+
+.touch-imposible .invisible-scrollbar-box::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.grid-item-float {
+  grid-template-columns: repeat(auto-fit, minmax(0, max-content));
+}
+
+.item-bt-1 > * {
+  border-top: 1px solid #afafaf;
+}
+
+.item-bb-1-not-last-child > *:not(:last-child) {
+  border-bottom: 1px solid #afafaf;
+}
+
+.title-bar {
+  font-size: 1.1rem;
+  padding-top: 5px;
+  paddinb-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  border: solid black;
+  border-width: 2px 0;
+}
+
+.title-bar:first-child {
+  margin-top: 0;
+}
+
+.form-control .plain-text {
+  padding: 0 0.25rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.plain-link-wrap.gap-2 > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.plain-link-wrap.gap-3 > *:not(:last-child) {
+  margin-right: 0.75rem;
+}
+
+.form-type-1 {
+  gap: 10px;
+}
+
+.btn-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn-wrap.gap-1 > *:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
+.btn-wrap.gap-2 > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.btn-wrap.gap-3 > *:not(:last-child) {
+  margin-right: 0.75rem;
+}
+
+:root {
+  --card-title_height: 40px;
+  --card-title_left-btn-cell-width: 50px;
+}
+
+.card-title {
+  background-color: rgb(87, 13, 248);
+  color: white;
+  text-align: center;
+  height: var(--card-title_height);
+  position: absolute;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: var(--card-title_left-btn-cell-width) auto var(
+      --card-title_left-btn-cell-width
+    );
+}
+
+.card-title + * {
+  margin-top: var(--card-title_height);
+}
+
+html > body .plain-link {
+  color: rgb(59, 130, 246);
+}
+
+html > body .plain-link:hover {
+  text-decoration: underline;
+}
+
+.max-h-18 {
+  max-height: calc(0.25rem * 18);
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+/* 유틸 - 끝 */
+
+/* 기타 - 시작 */
+.component-title-bar {
+  border: solid black;
+  border-width: 2px 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+/* 기타 - 끝 */
+
+@media (max-width: 640px) {
+  .sm\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+}
+
+
+/* 탑바 시작 */
+:root {
+  --top-bar__color-1:#f1f1f1;
+}
+
+.top-bar {
+  /* .bg-white */
+  background-color:white;
+  
+  /* .shadow-lg */
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  
+  height: 3rem;
+}
+
+/* 탑바 - 메뉴 박스 시작 */
+.top-bar .menu-box-1 {
+  overflow-x:auto;
+}
+
+/* 탑바 - 메뉴 박스 - 터치 불가능한 경우 스크롤바 제거 */
+.touch-imposible .menu-box-1::-webkit-scrollbar
+{
+  width: 0;
+  height: 0;
+}
+
+/* 탑바 - 메뉴 박스 - 더보기 그림자 시작 */
+.top-bar .container {
+  position:relative;
+}
+
+.top-bar .container::after {
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:40px;
+  height:100%;
+  background-image:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+  pointer-events:none;
+}
+/* 탑바 - 메뉴 박스 - 더보기 그림자 끝 */
+
+/* 탑바 - 메뉴 박스 - 아이템 시작 */
+.top-bar .menu-box-1 ul > li > a > span {
+  white-space:nowrap;
+}
+
+.top-bar .menu-box-1 ul > li:hover > a {
+  background-color:var(--top-bar__color-1);
+}
+/* 탑바 - 메뉴 박스 - 아이템 끝 */
+
+/* 탑바 - 메뉴 박스 - 2차 메뉴 시작 */
+.top-bar .menu-box-1 > ul > li:hover > div {
+  display:block;
+}
+
+.top-bar .menu-box-1 > ul > li > div {
+  position:fixed;
+  left:0;
+  width:100%;
+  display:none;
+  background-color:white;
+  /* .shadow-lg */
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.top-bar .menu-box-1 > ul > li > div > h1 > a {
+  display:flex;
+  background-color:flex;
+  justify-content:center;
+  padding:.5rem 0;
+  background-color:var(--top-bar__color-1);
+}
+
+.top-bar .menu-box-1 > ul > li > div > ul > li > a {
+  display:flex;
+  background-color:flex;
+  justify-content:center;
+  padding:.5rem 0;
+}
+/* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
+
+.top-bar--fly {
+  top:0;
+  left:0;
+  width:100%;
+  z-index:50;
+  position:fixed;
+}
+/* 탑바 끝 */
