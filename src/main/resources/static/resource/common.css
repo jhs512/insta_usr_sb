@@ -61,13 +61,7 @@ html > body {
 }
 
 .title-bar {
-  font-size: 1.1rem;
-  padding-top: 5px;
-  paddinb-bottom: 5px;
-  margin-top: 20px;
-  margin-bottom: 15px;
-  border: solid black;
-  border-width: 2px 0;
+  
 }
 
 .title-bar:first-child {
@@ -199,6 +193,10 @@ html > body .plain-link:hover {
 box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   
   height: 3rem;
+}
+
+.top-bar + * {
+  padding-top: 4rem;
 }
 
 /* 탑바 - 메뉴 박스 시작 */
