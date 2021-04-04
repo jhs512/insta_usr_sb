@@ -44,7 +44,7 @@ public class ArticleService {
 
 		articleDao.deleteArticleById(id);
 
-		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id);
+		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id, "boardId", article.getBoardId());
 	}
 
 	public ResultData writeArticle(String title, String body) {
