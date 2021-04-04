@@ -10,6 +10,14 @@
 		WHERE A.boardId = #{boardId}
 		AND A.delStatus = 0
 	</select>
+	
+	<select id="getForPrintArticles" resultType="Article">
+		SELECT *
+		FROM article AS A
+		WHERE A.boardId = #{boardId}
+		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{limitTake};
+	</select>	
 
 	<select id="getBoardById" resultType="Board">
 		SELECT *
