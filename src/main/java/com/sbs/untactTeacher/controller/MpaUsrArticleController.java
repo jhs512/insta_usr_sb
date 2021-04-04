@@ -98,6 +98,10 @@ public class MpaUsrArticleController {
 		}
 		
 		req.setAttribute("board", board);
+		
+		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
+		
+		req.setAttribute("totalItemsCount", totalItemsCount);
 
 		return "mpaUsr/article/list";
 	}
