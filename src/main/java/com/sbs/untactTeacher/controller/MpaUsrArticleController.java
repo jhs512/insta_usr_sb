@@ -74,7 +74,8 @@ public class MpaUsrArticleController {
 		Board board = articleService.getBoardById(boardId);
 
 		if (board == null) {
-			return "존재하지 않는 게시판 입니다.";
+			req.setAttribute("msg", boardId + "번 게시판이 존재하지 않습니다.");
+			return "common/redirect";
 		}
 		
 		req.setAttribute("board", board);
