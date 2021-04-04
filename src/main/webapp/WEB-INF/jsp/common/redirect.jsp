@@ -8,5 +8,5 @@ if ( alertMsg ) {
 	alert(alertMsg);
 }
 
-//history.back();
+history.back();
 </script>
