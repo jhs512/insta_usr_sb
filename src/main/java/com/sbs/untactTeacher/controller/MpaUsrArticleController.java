@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.untactTeacher.dto.Article;
+import com.sbs.untactTeacher.dto.Board;
 import com.sbs.untactTeacher.dto.ResultData;
 import com.sbs.untactTeacher.service.ArticleService;
 import com.sbs.untactTeacher.util.Util;
@@ -65,9 +66,15 @@ public class MpaUsrArticleController {
 
 		return articleService.deleteArticleById(id);
 	}
-	
+
 	@RequestMapping("/mpaUsr/article/list")
 	public String showList(int boardId) {
+		Board board = articleService.getBoardById(boardId);
+
+		if (board == null) {
+			return "존재하지 않는 게시판 입니다.";
+		}
+
 		return "mpaUsr/article/list";
 	}
 
