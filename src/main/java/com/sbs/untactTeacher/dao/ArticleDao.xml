@@ -8,30 +8,46 @@
 		SELECT COUNT(*) AS cnt
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND (
+		<if test="searchKeyword != null">
+			<if test="searchKeywordTypeCode == 'titleAndBody'">
+				AND (
 				A.title LIKE CONCAT('%', #{searchKeyword}, '%')
 				OR
 				A.body LIKE CONCAT('%', #{searchKeyword}, '%')
-			)
+				)
+			</if>
+			<if test="searchKeywordTypeCode == 'title'">
+				AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchKeywordTypeCode == 'body'">
+				AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
 		</if>
 		AND A.delStatus = 0
 	</select>
-	
+
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT *
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND (
+		<if test="searchKeyword != null">
+			<if test="searchKeywordTypeCode == 'titleAndBody'">
+				AND (
 				A.title LIKE CONCAT('%', #{searchKeyword}, '%')
 				OR
 				A.body LIKE CONCAT('%', #{searchKeyword}, '%')
-			)
+				)
+			</if>
+			<if test="searchKeywordTypeCode == 'title'">
+				AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchKeywordTypeCode == 'body'">
+				AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
 		</if>
 		ORDER BY A.id DESC
 		LIMIT #{limitFrom}, #{limitTake};
-	</select>	
+	</select>
 
 	<select id="getBoardById" resultType="Board">
 		SELECT *
@@ -46,7 +62,7 @@
 		WHERE A.id = #{id}
 		AND A.delStatus = 0
 	</select>
-	
+
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
@@ -63,7 +79,8 @@
 	<insert id="writeArticle">
 		INSERT INTO article
 		SET regDate = NOW(),
-		updateDate = NOW(),
+		updateDate =
+		NOW(),
 		boardId = #{boardId},
 		memberId = #{memberId},
 		title = #{title},
@@ -74,7 +91,8 @@
 		UPDATE article
 		SET delStatus = 1,
 		delDate = NOW()
-		WHERE id = #{id}
+		WHERE
+		id = #{id}
 	</update>
 
 </mapper>
