@@ -16,7 +16,10 @@ import com.sbs.untactTeacher.dto.ResultData;
 import com.sbs.untactTeacher.service.ArticleService;
 import com.sbs.untactTeacher.util.Util;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class MpaUsrArticleController {
 
 	@Autowired
@@ -93,8 +96,11 @@ public class MpaUsrArticleController {
 	}
 
 	@RequestMapping("/mpaUsr/article/list")
-	public String showList(HttpServletRequest req, int boardId, @RequestParam(defaultValue = "1") int page) {
+	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId, String searchKeyword,
+			@RequestParam(defaultValue = "1") int page) {
 		Board board = articleService.getBoardById(boardId);
+		
+		log.debug("searchKeyword : " + searchKeyword);
 
 		if (board == null) {
 			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
@@ -116,8 +122,6 @@ public class MpaUsrArticleController {
 		req.setAttribute("totalPage", totalPage);
 
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
-
-		System.out.println("articles : " + articles);
 
 		req.setAttribute("articles", articles);
 
