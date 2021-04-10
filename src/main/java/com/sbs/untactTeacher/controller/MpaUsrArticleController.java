@@ -108,7 +108,11 @@ public class MpaUsrArticleController {
 
 		req.setAttribute("board", board);
 
-		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
+		int totalItemsCount = articleService.getArticlesTotalCount(boardId, searchKeyword);
+		
+		if ( searchKeyword == null || searchKeyword.trim().length() == 0 ) {
+			
+		}
 
 		req.setAttribute("totalItemsCount", totalItemsCount);
 
@@ -121,7 +125,7 @@ public class MpaUsrArticleController {
 		req.setAttribute("page", page);
 		req.setAttribute("totalPage", totalPage);
 
-		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
+		List<Article> articles = articleService.getForPrintArticles(boardId, searchKeyword, itemsCountInAPage, page);
 
 		req.setAttribute("articles", articles);
 

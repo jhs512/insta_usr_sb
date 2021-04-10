@@ -8,6 +8,13 @@
 		SELECT COUNT(*) AS cnt
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
+		<if test="searchKeyword != null and searchKeyword != ''">
+			AND (
+				A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+				OR
+				A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+			)
+		</if>
 		AND A.delStatus = 0
 	</select>
 	
@@ -15,6 +22,13 @@
 		SELECT *
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
+		<if test="searchKeyword != null and searchKeyword != ''">
+			AND (
+				A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+				OR
+				A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+			)
+		</if>
 		ORDER BY A.id DESC
 		LIMIT #{limitFrom}, #{limitTake};
 	</select>	
