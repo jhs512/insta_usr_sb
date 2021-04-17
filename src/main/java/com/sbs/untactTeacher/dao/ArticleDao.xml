@@ -63,6 +63,16 @@
 		AND A.delStatus = 0
 	</select>
 
+	<select id="getForPrintArticleById" resultType="Article">
+		SELECT A.*,
+		IFNULL(M.name, "삭제된_회원") AS extra__writerName
+		FROM article AS A
+		LEFT JOIN member AS M
+		ON A.memberId = M.id
+		WHERE A.id = #{id}
+		AND A.delStatus = 0
+	</select>
+
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
