@@ -1,22 +1,19 @@
 package com.sbs.untactTeacher.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.sbs.untactTeacher.dto.Article;
+import com.sbs.untactTeacher.dto.Board;
+import com.sbs.untactTeacher.dto.ResultData;
+import com.sbs.untactTeacher.service.ArticleService;
+import com.sbs.untactTeacher.util.Util;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sbs.untactTeacher.dto.Article;
-import com.sbs.untactTeacher.dto.Board;
-import com.sbs.untactTeacher.dto.ResultData;
-import com.sbs.untactTeacher.service.ArticleService;
-import com.sbs.untactTeacher.util.Util;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -35,6 +32,19 @@ public class MpaUsrArticleController {
 		req.setAttribute("msg", msg);
 		req.setAttribute("replaceUrl", replaceUrl);
 		return "common/redirect";
+	}
+
+	@RequestMapping("/mpaUsr/article/write")
+	public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId) {
+		Board board = articleService.getBoardById(boardId);
+
+		if (board == null) {
+			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
+		}
+
+		req.setAttribute("board", board);
+
+		return "mpaUsr/article/write";
 	}
 
 	@RequestMapping("/mpaUsr/article/doWrite")
