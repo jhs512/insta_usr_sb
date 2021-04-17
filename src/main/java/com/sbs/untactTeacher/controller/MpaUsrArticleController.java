@@ -48,7 +48,7 @@ public class MpaUsrArticleController {
 	}
 
 	@RequestMapping("/mpaUsr/article/doWrite")
-	public String doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, int boardId, String title, String body) {
 
 		if (Util.isEmpty(title)) {
 			return msgAndBack(req, "제목을 입력해주세요.");
@@ -58,7 +58,9 @@ public class MpaUsrArticleController {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
 
-		ResultData writeArticleRd = articleService.writeArticle(title, body);
+		int memberId = 3; // 임시
+
+		ResultData writeArticleRd = articleService.writeArticle(boardId, memberId, title, body);
 
 		if ( writeArticleRd.isFail() ) {
 			return msgAndBack(req, writeArticleRd.getMsg());

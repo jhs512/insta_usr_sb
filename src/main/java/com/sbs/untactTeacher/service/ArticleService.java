@@ -1,14 +1,13 @@
 package com.sbs.untactTeacher.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.sbs.untactTeacher.dao.ArticleDao;
 import com.sbs.untactTeacher.dto.Article;
 import com.sbs.untactTeacher.dto.Board;
 import com.sbs.untactTeacher.dto.ResultData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ArticleService {
@@ -49,9 +48,7 @@ public class ArticleService {
 		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id, "boardId", article.getBoardId());
 	}
 
-	public ResultData writeArticle(String title, String body) {
-		int boardId = 3; // 가짜 데이터
-		int memberId = 3; // 가짜 데이터
+	public ResultData writeArticle(int boardId, int memberId, String title, String body) {
 		articleDao.writeArticle(boardId, memberId, title, body);
 		int id = articleDao.getLastInsertId();
 
