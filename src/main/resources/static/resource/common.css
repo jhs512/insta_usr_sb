@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /* 폰트적용 - 시작 */
 @font-face {
   font-family: "LotteMartDream";
@@ -60,12 +62,18 @@ html > body {
   border-bottom: 1px solid #afafaf;
 }
 
-.title-bar {
-  
+.title-bar-type-2 {
+  font-size:1.1rem;
+  padding-top:5px;
+  padding-bottom:5px;
+  margin-top:20px;
+  margin-bottom:15px;
+  border:solid black;
+  border-width:2px 0;
 }
 
-.title-bar:first-child {
-  margin-top: 0;
+.title-bar-type-2:first-child {
+  margin-top:0;
 }
 
 .form-control .plain-text {
