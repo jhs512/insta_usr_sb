@@ -2,7 +2,6 @@ package com.sbs.untactTeacher.controller;
 
 import com.sbs.untactTeacher.dto.Article;
 import com.sbs.untactTeacher.dto.Board;
-import com.sbs.untactTeacher.dto.Req;
 import com.sbs.untactTeacher.dto.ResultData;
 import com.sbs.untactTeacher.service.ArticleService;
 import com.sbs.untactTeacher.util.Util;
@@ -41,12 +40,6 @@ public class MpaUsrArticleController {
 
     @RequestMapping("/mpaUsr/article/write")
     public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId) {
-        Req rq = (Req)req.getAttribute("req");
-
-        if ( rq.isNotLogined() ) {
-            return Util.msgAndBack(req, "로그인 후 이용해주세요.");
-        }
-
         Board board = articleService.getBoardById(boardId);
 
         if (board == null) {
@@ -60,13 +53,6 @@ public class MpaUsrArticleController {
 
     @RequestMapping("/mpaUsr/article/doWrite")
     public String doWrite(HttpServletRequest req, int boardId, String title, String body) {
-
-        Req rq = (Req)req.getAttribute("req");
-
-        if ( rq.isNotLogined() ) {
-            return Util.msgAndBack(req, "로그인 후 이용해주세요.");
-        }
-
         if (Util.isEmpty(title)) {
             return Util.msgAndBack(req, "제목을 입력해주세요.");
         }

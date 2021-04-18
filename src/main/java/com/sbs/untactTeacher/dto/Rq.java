@@ -1,9 +1,9 @@
 package com.sbs.untactTeacher.dto;
 
-public class Req {
+public class Rq {
     private Member loginedMember;
 
-    public Req(Member loginedMember) {
+    public Rq(Member loginedMember) {
         this.loginedMember = loginedMember;
     }
 

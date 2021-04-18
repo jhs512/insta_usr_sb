@@ -1,7 +1,7 @@
 package com.sbs.untactTeacher.interceptor;
 
 import com.sbs.untactTeacher.dto.Member;
-import com.sbs.untactTeacher.dto.Req;
+import com.sbs.untactTeacher.dto.Rq;
 import com.sbs.untactTeacher.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
             loginedMember = memberService.getMemberById(loginedMemberId);
         }
 
-        req.setAttribute("req", new Req(loginedMember));
+        req.setAttribute("rq", new Rq(loginedMember));
 
         return HandlerInterceptor.super.preHandle(req, resp, handler);
     }

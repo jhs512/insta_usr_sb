@@ -88,7 +88,7 @@
 								</ul>
 							</div>
 						</li>
-						<c:if test="${req.isLogined()}">
+						<c:if test="${rq.isLogined()}">
 						<li>
 							<a href="../member/doLogout" class="h-full flex items-center px-5">
 								<span>
@@ -102,11 +102,11 @@
                                 <span>
                                     <i class="fas fa-sign-out-alt"></i>
                                 </span>
-                                <span class="hidden md:block">&nbsp;${req.getLoginedMemberNickname()}＇s MY PAGE</span>
+                                <span class="hidden md:block">&nbsp;${rq.getLoginedMemberNickname()}＇s MY PAGE</span>
                             </a>
                         </li>
 						</c:if>
-						<c:if test="${req.isNotLogined()}">
+						<c:if test="${rq.isNotLogined()}">
                         <li>
                             <a href="../member/login" class="h-full flex items-center px-5">
                                 <span>
