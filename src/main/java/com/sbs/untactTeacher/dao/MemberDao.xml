@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sbs.untactTeacher.dao.MemberDao">
+    <select id="getMemberByLoginId" resultType="Member">
+        SELECT *
+        FROM `member` AS M
+        WHERE M.loginId = #{loginId}
+        AND M.delStatus = 0
+    </select>
+
+    <select id="getMemberById" resultType="Member">
+        SELECT *
+        FROM `member` AS M
+        WHERE M.id = #{id}
+        AND M.delStatus = 0
+    </select>
+
+    <select id="getLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+    <insert id="join">
+        INSERT INTO `member`
+        SET regDate = NOW(),
+        updateDate = NOW(),
+        loginId = #{loginId},
+        loginPw = #{loginPw},
+        name = #{name},
+        nickname = #{nickname},
+        cellphoneNo = #{cellphoneNo},
+        email = #{email}
+    </insert>
+</mapper>
+
+
