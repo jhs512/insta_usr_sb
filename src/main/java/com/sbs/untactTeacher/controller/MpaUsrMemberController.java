@@ -10,12 +10,37 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
 public class MpaUsrMemberController {
     @Autowired
     private MemberService memberService;
+
+    @RequestMapping("/mpaUsr/member/login")
+    public String showLogin(HttpServletRequest req) {
+        return "mpaUsr/member/login";
+    }
+
+    @RequestMapping("/mpaUsr/member/doLogin")
+    public String doLogin(HttpServletRequest req, HttpSession session, String loginId, String loginPw, String redirectUrl) {
+        Member member = memberService.getMemberByLoginId(loginId);
+
+        if (member == null) {
+            return Util.msgAndBack(req, loginId + "(은)는 존재하지 않는 로그인아이디 입니다.");
+        }
+
+        if (member.getLoginPw().equals(loginPw) == false) {
+            return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
+        }
+
+        //HttpSession session = req.getSession();
+        session.setAttribute("loginedMemberId", member.getId());
+
+        String msg = "환영합니다.";
+        return Util.msgAndReplace(req, msg, redirectUrl);
+    }
 
     @RequestMapping("/mpaUsr/member/join")
     public String showJoin(HttpServletRequest req) {
