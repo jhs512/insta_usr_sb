@@ -23,6 +23,14 @@ public class MpaUsrMemberController {
         return "mpaUsr/member/login";
     }
 
+    @RequestMapping("/mpaUsr/member/doLogout")
+    public String doLogout(HttpServletRequest req, HttpSession session) {
+        session.removeAttribute("loginedMemberId");
+
+        String msg = "로그아웃 되었습니다.";
+        return Util.msgAndReplace(req, msg, "/");
+    }
+
     @RequestMapping("/mpaUsr/member/doLogin")
     public String doLogin(HttpServletRequest req, HttpSession session, String loginId, String loginPw, String redirectUrl) {
         Member member = memberService.getMemberByLoginId(loginId);
