@@ -88,15 +88,42 @@
 								</ul>
 							</div>
 						</li>
+						<c:if test="${req.isLogined()}">
 						<li>
 							<a href="#" class="h-full flex items-center px-5">
 								<span>
 									<i class="fas fa-sign-out-alt"></i>
 								</span>
-								<span class="hidden md:block">&nbsp;SIGN OUT</span>
+								<span class="hidden md:block">&nbsp;LOGOUT</span>
 							</a>
-							<div></div>
 						</li>
+					    <li>
+                            <a href="#" class="h-full flex items-center px-5">
+                                <span>
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </span>
+                                <span class="hidden md:block">&nbsp;${req.getLoginedMemberNickname()}＇s MY PAGE</span>
+                            </a>
+                        </li>
+						</c:if>
+						<c:if test="${req.isNotLogined()}">
+                        <li>
+                            <a href="../member/login" class="h-full flex items-center px-5">
+                                <span>
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </span>
+                                <span class="hidden md:block">&nbsp;LOGIN</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../member/join" class="h-full flex items-center px-5">
+                                <span>
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </span>
+                                <span class="hidden md:block">&nbsp;JOIN</span>
+                            </a>
+                        </li>
+                        </c:if>
 					</ul>
 				</nav>
 			</div>
