@@ -40,7 +40,7 @@ function MemberLogin__submitForm(form) {
 <div class="section section-article-list px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="doLogin" onsubmit="MemberLogin__submitForm(this); return false;">
-	        <input type="hidden" name="redirectUrl" value="${param.afterLoginUrl}" />
+	        <input type="hidden" name="redirectUri" value="${param.afterLoginUri}" />
 	        <div class="form-control">
                 <label class="label">
                     로그인아이디

@@ -4,11 +4,13 @@ import com.sbs.untactTeacher.util.Util;
 
 public class Rq {
     private String currentUrl;
+    private String currentUri;
     private Member loginedMember;
 
-    public Rq(Member loginedMember, String currentUrl) {
+    public Rq(Member loginedMember, String currentUri) {
         this.loginedMember = loginedMember;
-        this.currentUrl = currentUrl;
+        this.currentUrl = currentUri.split("\\?")[0];
+        this.currentUri = currentUri;
     }
 
     public boolean isLogined() {
@@ -35,15 +37,27 @@ public class Rq {
         return loginedMember.getNickname();
     }
 
-    public String getEncodedCurrentUrl() {
-        return Util.getUrlEncoded(getCurrentUrl());
+    public String getEncodedCurrentUri() {
+        return Util.getUriEncoded(getCurrentUri());
     }
 
-    private String getCurrentUrl() {
-        return currentUrl;
+    private String getCurrentUri() {
+        return currentUri;
     }
 
-    public String getLoginPageUrl() {
-        return "../member/login?afterLoginUrl=" + getEncodedCurrentUrl();
+    public String getLoginPageUri() {
+        String afterLoginUri;
+
+        if (isLoginPage()) {
+            afterLoginUri = "";
+        } else {
+            afterLoginUri = getEncodedCurrentUri();
+        }
+
+        return "../member/login?afterLoginUri=" + afterLoginUri;
+    }
+
+    private boolean isLoginPage() {
+        return currentUrl.equals("/mpaUsr/member/login");
     }
 }
