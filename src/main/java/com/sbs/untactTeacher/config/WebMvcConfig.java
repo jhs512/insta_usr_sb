@@ -38,6 +38,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/mpaUsr/article/doModify");
 
         registry.addInterceptor(needToLogoutInterceptor)
+                .addPathPatterns("/mpaUsr/member/findLoginId")
+                .addPathPatterns("/mpaUsr/member/doFindLoginId")
+                .addPathPatterns("/mpaUsr/member/findLoginPw")
+                .addPathPatterns("/mpaUsr/member/doFindLoginPw")
                 .addPathPatterns("/mpaUsr/member/login")
                 .addPathPatterns("/mpaUsr/member/doLogin")
                 .addPathPatterns("/mpaUsr/member/join")

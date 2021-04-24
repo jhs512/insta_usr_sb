@@ -41,6 +41,29 @@
         cellphoneNo = #{cellphoneNo},
         email = #{email}
     </insert>
+
+    <update id="modify">
+        UPDATE `member`
+        <set>
+            updateDate = NOW(),
+            <if test="loginPw != null">
+                loginPw = #{loginPw},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="cellphoneNo != null">
+                cellphoneNo = #{cellphoneNo},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>
 
 

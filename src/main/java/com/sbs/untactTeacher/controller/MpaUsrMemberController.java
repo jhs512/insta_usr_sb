@@ -23,6 +23,37 @@ public class MpaUsrMemberController {
         return "mpaUsr/member/login";
     }
 
+    @RequestMapping("/mpaUsr/member/findLoginPw")
+    public String showFindLoginPw(HttpServletRequest req) {
+        return "mpaUsr/member/findLoginPw";
+    }
+
+    @RequestMapping("/mpaUsr/member/doFindLoginPw")
+    public String doFindLoginPw(HttpServletRequest req, String loginId, String name, String email, String redirectUri) {
+        if (Util.isEmpty(redirectUri)) {
+            redirectUri = "/";
+        }
+
+        Member member = memberService.getMemberByLoginId(loginId);
+
+        if (member == null) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        if (member.getName().equals(name) == false) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        if (member.getEmail().equals(email) == false) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        ResultData notifyTempLoginPwByEmailRs = memberService.notifyTempLoginPwByEmail(member);
+
+        return Util.msgAndReplace(req, notifyTempLoginPwByEmailRs.getMsg(), redirectUri);
+    }
+
+
     @RequestMapping("/mpaUsr/member/findLoginId")
     public String showFindLoginId(HttpServletRequest req) {
         return "mpaUsr/member/findLoginId";

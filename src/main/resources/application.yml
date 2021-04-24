@@ -1,6 +1,17 @@
 server:
   port: 8024
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jangka512@gmail.com
+    password: cvvmkevbonrivahx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -14,6 +25,10 @@ spring:
 mybatis:
   type-aliases-package: com.sbs.untactTeacher.dto
 custom:
+  siteMainUri: http://localhost:8024/
+  siteName: 인스타
+  emailFrom: no-reply@localhost
+  emailFromName: 인스타알림봇
   logging:
     dir: log
     level: debug
