@@ -11,6 +11,14 @@
         AND M.delStatus = 0
     </select>
 
+    <select id="getMemberByNameAndEmail" resultType="Member">
+        SELECT *
+        FROM `member` AS M
+        WHERE M.name = #{name}
+        AND M.email = #{email}
+        AND M.delStatus = 0
+    </select>
+
     <select id="getMemberById" resultType="Member">
         SELECT *
         FROM `member` AS M

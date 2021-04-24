@@ -23,6 +23,26 @@ public class MpaUsrMemberController {
         return "mpaUsr/member/login";
     }
 
+    @RequestMapping("/mpaUsr/member/findLoginId")
+    public String showFindLoginId(HttpServletRequest req) {
+        return "mpaUsr/member/findLoginId";
+    }
+
+    @RequestMapping("/mpaUsr/member/doFindLoginId")
+    public String doFindLoginId(HttpServletRequest req, String name, String email, String redirectUri) {
+        if (Util.isEmpty(redirectUri)) {
+            redirectUri = "/";
+        }
+
+        Member member = memberService.getMemberByNameAndEmail(name, email);
+
+        if (member == null) {
+            return Util.msgAndBack(req, "일치하는 회원이 존재하지 않습니다.");
+        }
+
+        return Util.msgAndBack(req, String.format("회원님의 아이디는 `%s` 입니다.", member.getLoginId()));
+    }
+
     @RequestMapping("/mpaUsr/member/doLogout")
     public String doLogout(HttpServletRequest req, HttpSession session) {
         session.removeAttribute("loginedMemberId");
@@ -32,8 +52,9 @@ public class MpaUsrMemberController {
     }
 
     @RequestMapping("/mpaUsr/member/doLogin")
-    public String doLogin(HttpServletRequest req, HttpSession session, String loginId, String loginPw, String redirectUri) {
-        if ( Util.isEmpty(redirectUri) ) {
+    public String doLogin(HttpServletRequest req, HttpSession session, String loginId, String loginPw, String
+            redirectUri) {
+        if (Util.isEmpty(redirectUri)) {
             redirectUri = "/";
         }
 
@@ -60,7 +81,8 @@ public class MpaUsrMemberController {
     }
 
     @RequestMapping("/mpaUsr/member/doJoin")
-    public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+    public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name, String
+            nickname, String cellphoneNo, String email) {
         Member oldMember = memberService.getMemberByLoginId(loginId);
 
         if (oldMember != null) {
