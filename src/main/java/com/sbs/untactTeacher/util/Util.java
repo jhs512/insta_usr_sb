@@ -99,14 +99,14 @@ public class Util {
         return "";
     }
 
-    public static Map<String, Object> getParamMap(HttpServletRequest request) {
-        Map<String, Object> param = new HashMap<>();
+    public static Map<String, String> getParamMap(HttpServletRequest request) {
+        Map<String, String> param = new HashMap<>();
 
         Enumeration<String> parameterNames = request.getParameterNames();
 
         while (parameterNames.hasMoreElements()) {
             String paramName = parameterNames.nextElement();
-            Object paramValue = request.getParameter(paramName);
+            String paramValue = request.getParameter(paramName);
 
             param.put(paramName, paramValue);
         }
@@ -339,9 +339,9 @@ public class Util {
         return "common/redirect";
     }
 
-    public static String msgAndReplace(HttpServletRequest req, String msg, String replaceUrl) {
+    public static String msgAndReplace(HttpServletRequest req, String msg, String replaceUri) {
         req.setAttribute("msg", msg);
-        req.setAttribute("replaceUrl", replaceUrl);
+        req.setAttribute("replaceUri", replaceUri);
         return "common/redirect";
     }
 }
