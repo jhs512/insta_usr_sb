@@ -108,7 +108,7 @@
 						</c:if>
 						<c:if test="${rq.isNotLogined()}">
                         <li>
-                            <a href="../member/login" class="h-full flex items-center px-5">
+                            <a href="${rq.getLoginPageUrl()}" class="h-full flex items-center px-5">
                                 <span>
                                     <i class="fas fa-sign-in-alt"></i>
                                 </span>
