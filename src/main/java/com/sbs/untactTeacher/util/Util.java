@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -118,7 +117,7 @@ public class Util {
     public static String getUriEncoded(String str) {
         try {
             return URLEncoder.encode(str, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             return str;
         }
     }
