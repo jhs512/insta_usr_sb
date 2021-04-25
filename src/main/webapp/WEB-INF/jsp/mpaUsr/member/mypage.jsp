@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.sbs.untactTeacher.util.Util" %>
 
 <c:set var="pageTitle"
 	value="<span><i class='fas fa-sign-in-alt'></i></span> <span>MYPAGE</span>" />
@@ -54,7 +55,7 @@
                 </div>
 
                 <div class="grid grid-item-float gap-3 mt-4">
-                    <a href="../member/modify" class="text-blue-500 hover:underline">
+                    <a href="../member/checkPassword?afterUri=${Util.getUriEncoded('../member/modify')}" class="text-blue-500 hover:underline">
                         <span>
                             <i class="fas fa-edit"></i>
                             <span>수정</span>

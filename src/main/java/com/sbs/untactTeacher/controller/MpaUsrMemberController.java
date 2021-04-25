@@ -28,11 +28,11 @@ public class MpaUsrMemberController {
     public String doModify(HttpServletRequest req, String loginPw, String name, String
             nickname, String cellphoneNo, String email) {
 
-        if ( loginPw != null && loginPw.trim().length() == 0 ) {
+        if (loginPw != null && loginPw.trim().length() == 0) {
             loginPw = null;
         }
 
-        int id = ((Rq)req.getAttribute("rq")).getLoginedMemberId();
+        int id = ((Rq) req.getAttribute("rq")).getLoginedMemberId();
         ResultData modifyRd = memberService.modify(id, loginPw, name, nickname, cellphoneNo, email);
 
         if (modifyRd.isFail()) {
@@ -155,5 +155,21 @@ public class MpaUsrMemberController {
         }
 
         return Util.msgAndReplace(req, joinRd.getMsg(), "/");
+    }
+
+    @RequestMapping("/mpaUsr/member/checkPassword")
+    public String showCheckPassword(HttpServletRequest req) {
+        return "mpaUsr/member/checkPassword";
+    }
+
+    @RequestMapping("/mpaUsr/member/doCheckPassword")
+    public String doCheckPassword(HttpServletRequest req, String loginPw, String redirectUri) {
+        Member loginedMember = ((Rq) req.getAttribute("rq")).getLoginedMember();
+
+        if (loginedMember.getLoginPw().equals(loginPw) == false) {
+            return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
+        }
+
+        return Util.msgAndReplace(req, "", redirectUri);
     }
 }
