@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="grid grid-item-float gap-3 mt-4">
-                    <a href="#" class="text-blue-500 hover:underline">
+                    <a href="../member/modify" class="text-blue-500 hover:underline">
                         <span>
                             <i class="fas fa-edit"></i>
                             <span>수정</span>
