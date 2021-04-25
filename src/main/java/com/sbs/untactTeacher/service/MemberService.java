@@ -27,6 +27,9 @@ public class MemberService {
     }
 
     public ResultData join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+
+        loginPw = Util.sha256(loginPw);
+
         memberDao.join(loginId, loginPw, name, nickname, cellphoneNo, email);
         int id = memberDao.getLastInsertId();
 
@@ -59,6 +62,9 @@ public class MemberService {
     }
 
     private void setTempPassword(Member actor, String tempPassword) {
+
+        tempPassword = Util.sha256(tempPassword);
+
         memberDao.modify(actor.getId(), tempPassword, null, null, null, null);
     }
 }
