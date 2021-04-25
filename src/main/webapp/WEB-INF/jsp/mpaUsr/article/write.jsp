@@ -37,7 +37,7 @@ function ArticleWrite__submitForm(form) {
 }
 </script>
 
-<div class="section section-article-list">
+<div class="section section-article-write">
 	<div class="container mx-auto">
 	    <form method="POST" action="doWrite" onsubmit="ArticleWrite__submitForm(this); return false;">
 	        <input type="hidden" name="boardId" value="${board.id}" />

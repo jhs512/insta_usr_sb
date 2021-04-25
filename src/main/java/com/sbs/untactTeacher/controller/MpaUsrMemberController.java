@@ -18,6 +18,11 @@ public class MpaUsrMemberController {
     @Autowired
     private MemberService memberService;
 
+    @RequestMapping("/mpaUsr/member/mypage")
+    public String showMypage(HttpServletRequest req) {
+        return "mpaUsr/member/mypage";
+    }
+
     @RequestMapping("/mpaUsr/member/login")
     public String showLogin(HttpServletRequest req) {
         return "mpaUsr/member/login";

@@ -46,7 +46,7 @@ function MemberFindLoginPw__submitForm(form) {
 }
 </script>
 
-<div class="section section-article-list px-2">
+<div class="section section-find-login-pw px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="doFindLoginPw" onsubmit="MemberFindLoginPw__submitForm(this); return false;">
 	        <input type="hidden" name="redirectUri" value="${param.afterUri}" />

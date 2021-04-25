@@ -37,7 +37,7 @@ function MemberFindLoginId__submitForm(form) {
 }
 </script>
 
-<div class="section section-article-list px-2">
+<div class="section section-find-login-id px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="doFindLoginId" onsubmit="MemberFindLoginId__submitForm(this); return false;">
 	        <input type="hidden" name="redirectUri" value="${param.afterLoginUri}" />

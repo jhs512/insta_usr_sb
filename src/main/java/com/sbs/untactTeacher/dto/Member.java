@@ -19,4 +19,8 @@ public class Member {
     private String email;
     private boolean delStatus;
     private String delDate;
+
+    public String getAuthLevelName() {
+        return "일반회원";
+    }
 }

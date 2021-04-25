@@ -96,7 +96,7 @@ function MemberJoin__submitForm(form) {
 }
 </script>
 
-<div class="section section-article-list px-2">
+<div class="section section-join px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="doJoin" onsubmit="MemberJoin__submitForm(this); return false;">
 	        <input type="hidden" name="loginPw">

@@ -102,13 +102,13 @@
                                 <span>
                                     <i class="fas fa-sign-out-alt"></i>
                                 </span>
-                                <span class="hidden md:block">&nbsp;${rq.getLoginedMemberNickname()}＇s MY PAGE</span>
+                                <span class="hidden md:block">&nbsp;${rq.loginedMember.nickname}＇s MY PAGE</span>
                             </a>
                         </li>
 						</c:if>
-						<c:if test="${rq.isNotLogined()}">
+						<c:if test="${rq.notLogined}">
                         <li>
-                            <a href="${rq.getLoginPageUri()}" class="h-full flex items-center px-5">
+                            <a href="${rq.loginPageUri}" class="h-full flex items-center px-5">
                                 <span>
                                     <i class="fas fa-sign-in-alt"></i>
                                 </span>

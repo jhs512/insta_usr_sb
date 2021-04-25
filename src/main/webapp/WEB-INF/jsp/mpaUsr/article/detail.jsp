@@ -7,7 +7,7 @@
 
 <%@ include file="../common/head.jspf"%>
 
-<div class="section section-article-list">
+<div class="section section-article-detail">
 	<div class="container mx-auto">
 	    <div class="card bordered shadow-lg item-bt-1-not-last-child">
             <div class="card-title">
