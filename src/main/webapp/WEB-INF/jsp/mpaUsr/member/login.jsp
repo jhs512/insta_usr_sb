@@ -7,6 +7,8 @@
 
 <%@ include file="../common/head.jspf"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 <script>
 let MemberLogin__submitFormDone = false;
 function MemberLogin__submitForm(form) {
@@ -23,14 +25,17 @@ function MemberLogin__submitForm(form) {
         return;
     }
 
-    form.loginPw.value = form.loginPw.value.trim();
+    form.loginPwInput.value = form.loginPwInput.value.trim();
 
-    if ( form.loginPw.value.length == 0 ) {
+    if ( form.loginPwInput.value.length == 0 ) {
         alert('로그인비밀번호을 입력해주세요.');
-        form.loginPw.focus();
+        form.loginPwInput.focus();
 
         return;
     }
+
+    form.loginPw.value = sha256(form.loginPwInput.value);
+    form.loginPwInput.value = '';
 
     form.submit();
     MemberLogin__submitFormDone = true;
@@ -41,6 +46,7 @@ function MemberLogin__submitForm(form) {
 	<div class="container mx-auto">
 	    <form method="POST" action="doLogin" onsubmit="MemberLogin__submitForm(this); return false;">
 	        <input type="hidden" name="redirectUri" value="${param.afterLoginUri}" />
+	        <input type="hidden" name="loginPw" />
 	        <div class="form-control">
                 <label class="label">
                     로그인아이디
@@ -52,7 +58,7 @@ function MemberLogin__submitForm(form) {
                 <label class="label">
                     로그인비밀번호
                 </label>
-                <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPw" placeholder="로그인비밀번호를 입력해주세요." />
+                <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPwInput" placeholder="로그인비밀번호를 입력해주세요." />
             </div>
 
             <div class="mt-4 btn-wrap gap-1">

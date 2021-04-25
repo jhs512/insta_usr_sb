@@ -7,6 +7,8 @@
 
 <%@ include file="../common/head.jspf"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 <script>
 let MemberJoin__submitFormDone = false;
 function MemberJoin__submitForm(form) {
@@ -23,11 +25,11 @@ function MemberJoin__submitForm(form) {
         return;
     }
 
-    form.loginPw.value = form.loginPw.value.trim();
+    form.loginPwInput.value = form.loginPwInput.value.trim();
 
-    if ( form.loginPw.value.length == 0 ) {
+    if ( form.loginPwInput.value.length == 0 ) {
         alert('로그인비밀번호을 입력해주세요.');
-        form.loginPw.focus();
+        form.loginPwInput.focus();
 
         return;
     }
@@ -41,7 +43,7 @@ function MemberJoin__submitForm(form) {
         return;
     }
 
-    if ( form.loginPw.value != form.loginPwConfirm.value ) {
+    if ( form.loginPwInput.value != form.loginPwConfirm.value ) {
         alert('로그인비밀번호가 일치하지 않습니다.');
         form.loginPwConfirm.focus();
 
@@ -85,6 +87,10 @@ function MemberJoin__submitForm(form) {
         return;
     }
 
+    form.loginPw.value = sha256(form.loginPwInput.value);
+    form.loginPwInput.value = '';
+    form.loginPwConfirm.value = '';
+
     form.submit();
     MemberJoin__submitFormDone = true;
 }
@@ -93,6 +99,7 @@ function MemberJoin__submitForm(form) {
 <div class="section section-article-list px-2">
 	<div class="container mx-auto">
 	    <form method="POST" action="doJoin" onsubmit="MemberJoin__submitForm(this); return false;">
+	        <input type="hidden" name="loginPw">
 	        <div class="form-control">
                 <label class="label">
                     로그인아이디
@@ -104,7 +111,7 @@ function MemberJoin__submitForm(form) {
                 <label class="label">
                     로그인비밀번호
                 </label>
-                <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPw" placeholder="로그인비밀번호를 입력해주세요." />
+                <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPwInput" placeholder="로그인비밀번호를 입력해주세요." />
             </div>
 
             <div class="form-control">

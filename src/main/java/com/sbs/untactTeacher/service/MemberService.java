@@ -27,9 +27,6 @@ public class MemberService {
     }
 
     public ResultData join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
-
-        loginPw = Util.sha256(loginPw);
-
         memberDao.join(loginId, loginPw, name, nickname, cellphoneNo, email);
         int id = memberDao.getLastInsertId();
 
@@ -56,15 +53,14 @@ public class MemberService {
             return sendResultData;
         }
 
+        tempPassword = Util.sha256(tempPassword);
+
         setTempPassword(actor, tempPassword);
 
         return new ResultData("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다.");
     }
 
     private void setTempPassword(Member actor, String tempPassword) {
-
-        tempPassword = Util.sha256(tempPassword);
-
         memberDao.modify(actor.getId(), tempPassword, null, null, null, null);
     }
 }
