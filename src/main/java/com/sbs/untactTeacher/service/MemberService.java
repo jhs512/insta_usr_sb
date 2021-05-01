@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class MemberService {
 
@@ -73,11 +75,21 @@ public class MemberService {
         return new ResultData("S-1", "회원정보가 수정되었습니다.", "id", id);
     }
 
-    public ResultData checkValidModifyPrivateAuthCode(int actorId, String checkPasswordAuthCode) {
-        if (attrService.getValue("member__" + actorId + "__extra__modifyPrivateAuthCode").equals(checkPasswordAuthCode)) {
+    public ResultData checkValidCheckPasswordAuthCode(int actorId, String checkPasswordAuthCode) {
+        if (attrService.getValue("member__" + actorId + "__extra__checkPasswordAuthCode").equals(checkPasswordAuthCode)) {
             return new ResultData("S-1", "유효한 키 입니다.");
         }
 
         return new ResultData("F-1", "유효하지 않은 키 입니다.");
+    }
+
+    public String genCheckPasswordAuthCode(int actorId) {
+        String attrName = "member__" + actorId + "__extra__checkPasswordAuthCode";
+        String authCode = UUID.randomUUID().toString();
+        String expireDate = Util.getDateStrLater(60 * 60);
+
+        attrService.setValue(attrName, authCode, expireDate);
+
+        return authCode;
     }
 }
