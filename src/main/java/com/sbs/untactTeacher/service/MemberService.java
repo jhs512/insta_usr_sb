@@ -66,11 +66,16 @@ public class MemberService {
     }
 
     private void setTempPassword(Member actor, String tempPassword) {
+        attrService.setValue("member", actor.getId(), "extra", "useTempPassword", "1", null);
         memberDao.modify(actor.getId(), tempPassword, null, null, null, null);
     }
 
     public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNo, String email) {
         memberDao.modify(id, loginPw, name, nickname, cellphoneNo, email);
+
+        if (loginPw != null) {
+            attrService.remove("member", id, "extra", "useTempPassword");
+        }
 
         return new ResultData("S-1", "회원정보가 수정되었습니다.", "id", id);
     }
@@ -91,5 +96,9 @@ public class MemberService {
         attrService.setValue(attrName, authCode, expireDate);
 
         return authCode;
+    }
+
+    public boolean isUsingTempPassword(int actorId) {
+        return attrService.getValue("member", actorId, "extra", "useTempPassword").equals("1");
     }
 }
