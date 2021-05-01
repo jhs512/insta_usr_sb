@@ -19,8 +19,20 @@ public class MpaUsrMemberController {
     @Autowired
     private MemberService memberService;
 
+    // checkPasswordAuthCode : 체크비밀번호인증코드
     @RequestMapping("/mpaUsr/member/modify")
-    public String showModify(HttpServletRequest req) {
+    public String showModify(HttpServletRequest req,  String modifyPrivateAuthCode) {
+
+        Member loginedMember = ((Rq) req.getAttribute("rq")).getLoginedMember();
+        ResultData checkValidModifyPrivateAuthCodeResultData = memberService
+                .checkValidModifyPrivateAuthCode(loginedMember.getId(), modifyPrivateAuthCode);
+
+        if ( checkValidModifyPrivateAuthCodeResultData.isFail() ) {
+            return Util.msgAndBack(req, checkValidModifyPrivateAuthCodeResultData.getMsg());
+        }
+
+        log.debug("checkValidModifyPrivateAuthCodeResultData : " + checkValidModifyPrivateAuthCodeResultData);
+
         return "mpaUsr/member/modify";
     }
 
