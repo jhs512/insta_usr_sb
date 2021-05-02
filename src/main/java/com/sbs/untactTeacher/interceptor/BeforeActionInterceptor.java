@@ -35,7 +35,9 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
         }
 
         if (loginedMemberId != 0) {
-            loginedMember = memberService.getMemberById(loginedMemberId);
+            String loginedMemberJsonStr = (String) session.getAttribute("loginedMemberJsonStr");
+
+            loginedMember = Util.fromJsonStr(loginedMemberJsonStr, Member.class);
         }
 
         String currentUrl = req.getRequestURI();
@@ -47,8 +49,14 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
         boolean needToChangePassword = false;
 
-        if ( loginedMember != null ) {
-            needToChangePassword = memberService.needToChangePassword(loginedMember.getId());
+        if (loginedMember != null) {
+            if (session.getAttribute("needToChangePassword") == null) {
+                needToChangePassword = memberService.needToChangePassword(loginedMember.getId());
+
+                session.setAttribute("needToChangePassword", needToChangePassword);
+            }
+
+            needToChangePassword = (boolean) session.getAttribute("needToChangePassword");
         }
 
         req.setAttribute("rq", new Rq(loginedMember, currentUrl, paramMap, needToChangePassword));

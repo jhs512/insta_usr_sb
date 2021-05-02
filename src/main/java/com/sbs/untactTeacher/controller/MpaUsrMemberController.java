@@ -146,6 +146,7 @@ public class MpaUsrMemberController {
         }
 
         session.setAttribute("loginedMemberId", member.getId());
+        session.setAttribute("loginedMemberJsonStr", member.toJsonStr());
 
         String msg = "환영합니다.";
 
