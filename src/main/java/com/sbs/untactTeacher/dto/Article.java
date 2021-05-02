@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -23,6 +25,8 @@ public class Article {
     private int repliesCount;
     private int likeCount;
     private int dislikeCount;
+
+    private Map<String, Object> extra;
 
     private String extra__writerName;
 
