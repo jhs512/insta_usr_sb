@@ -44,6 +44,16 @@
 
 				<nav class="menu-box-1">
 					<ul class="flex h-full">
+						<c:if test="${rq.logined && rq.needToChangePassword}">
+						<li class="text-red-400">
+                            <a href="../member/checkPassword?afterUri=..%2Fmember%2Fmodify" class="h-full flex items-center px-5">
+                                <span>
+                                    <i class="fas fa-home"></i>
+                                </span>
+                                <span class="hidden sm:block">&nbsp;CHANGE PASSWORD</span>
+                            </a>
+                        </li>
+						</c:if>
 						<li>
 							<a href="/" class="h-full flex items-center px-5">
 								<span>

@@ -145,7 +145,6 @@ public class MpaUsrMemberController {
             return Util.msgAndBack(req, "비밀번호가 일치하지 않습니다.");
         }
 
-        //HttpSession session = req.getSession();
         session.setAttribute("loginedMemberId", member.getId());
 
         String msg = "환영합니다.";

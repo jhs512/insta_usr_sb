@@ -1,6 +1,7 @@
 package com.sbs.untactTeacher.dto;
 
 import com.sbs.untactTeacher.util.Util;
+import lombok.Getter;
 
 import java.util.Map;
 
@@ -9,12 +10,15 @@ public class Rq {
     private String currentUri;
     private Member loginedMember;
     private Map<String, String> paramMap;
+    @Getter
+    private boolean needToChangePassword;
 
-    public Rq(Member loginedMember, String currentUri, Map<String, String> paramMap) {
+    public Rq(Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
         this.loginedMember = loginedMember;
         this.currentUrl = currentUri.split("\\?")[0];
         this.currentUri = currentUri;
         this.paramMap = paramMap;
+        this.needToChangePassword = needToChangePassword;
     }
 
     public boolean isLogined() {
