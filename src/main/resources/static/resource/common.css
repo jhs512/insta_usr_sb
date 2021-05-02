@@ -169,14 +169,17 @@ html > body .plain-link:hover {
   -webkit-line-clamp: 4;
 }
 
+.item-bt-1-not-last-child > *:not(:last-child) {
+  border-bottom:1px solid #afafaf;
+}
+
 /* 유틸 - 끝 */
 
 /* 기타 - 시작 */
-.component-title-bar {
-  border: solid black;
-  border-width: 2px 0;
-  margin-top: 20px;
-  margin-bottom: 10px;
+.title-bar {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight:bold;
 }
 /* 기타 - 끝 */
 

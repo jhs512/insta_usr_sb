@@ -7,18 +7,18 @@
 
 <%@ include file="../common/head.jspf"%>
 
-<div class="section section-article-list">
+<div class="section section-article-search">
 	<div class="container mx-auto">
-		<div class="card bordered shadow-lg">
-            <div class="card-title">
-                <a href="javascript:history.back();" class="cursor-pointer">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-                <span>게시물 검색</span>
-            </div>
+		<div class="search-form-box">
+		    <div class="card bordered shadow-lg">
+                <div class="card-title">
+                    <a href="javascript:history.back();" class="cursor-pointer">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <span>게시물 리스트</span>
+                </div>
 
-            <div class="search-form-box px-4 py-8">
-                <form action="" class="grid gap-2">
+                <form action="" class="grid gap-2 px-4 py-4">
                     <input type="hidden" name="boardId" value="${board.id}" />
 
                     <div class="form-control">
@@ -56,9 +56,13 @@
                     </div>
                 </form>
             </div>
-        </div>
+		</div>
+	</div>
+</div>
 
-		<div class="articles mt-2 item-bt-1-not-last-child">
+<div class="section section-article-list mt-8">
+	<div class="container mx-auto">
+		<div class="articles">
 			<div class="card bordered shadow-lg">
                 <div class="card-title">
                     <a href="javascript:history.back();" class="cursor-pointer">
@@ -66,10 +70,34 @@
                     </a>
                     <span>게시물 리스트</span>
                 </div>
+
+                <div class="grid gap-3 px-4 pt-4">
+                    <div class="total-items">
+                        <span class="badge badge-primary">TOTAL ITEMS : </span>
+                        <span>${totalItemsCount}</span>
+                    </div>
+
+                    <div class="total-pages">
+                        <span class="badge badge-primary">TOTAL PAGES : </span>
+                        <span>${totalPage}</span>
+                    </div>
+
+                    <div class="page">
+                        <span class="badge badge-primary">CURRENT PAGE : </span>
+                        <span>${page}</span>
+                    </div>
+
+                    <hr />
+
+                    <div class="plain-link-wrap gap-3">
+                        <a href="write?boardId=${board.id}" class="plain-link">
+                            <span><i class="fas fa-edit"></i></span>
+                            <span>글 작성</span>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="item-bt-1-not-last-child">
-                    <c:if test="${articles == null || articles.size() == 0}">
-                        검색결과가 존재하지 않습니다.
-                    </c:if>
                     <c:forEach items="${articles}" var="article">
                         <c:set var="detailUri" value="../article/detail?id=${article.id}" />
                         <!-- 게시물 아이템, first -->
@@ -94,7 +122,6 @@
                                 <a href="${detailUri}" class="cursor-pointer hover:underline">
                                     <span class="badge badge-accent">작성자</span>
                                     <span>${article.extra__writerName}</span>
-                                    <span>${article.extra.writerRealName}</span>
                                 </a>
 
                                 <a href="${detailUri}" class="hover:underline">
@@ -130,7 +157,6 @@
                                 </a>
                             </div>
                         </div>
-                        <hr />
                     </c:forEach>
                 </div>
             </div>
