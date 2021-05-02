@@ -27,8 +27,11 @@
 	</select>
 
 	<select id="getForPrintArticles" resultType="Article">
-		SELECT *
+		SELECT A.*,
+		IFNULL(M.name, "삭제된_회원") AS extra__writerName
 		FROM article AS A
+		LEFT JOIN member AS M
+		ON A.memberId = M.id
 		WHERE A.boardId = #{boardId}
 		<if test="searchKeyword != null">
 			<if test="searchKeywordTypeCode == 'titleAndBody'">
