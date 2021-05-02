@@ -25,6 +25,7 @@ spring:
 mybatis:
   type-aliases-package: com.sbs.untactTeacher.dto
 custom:
+  needToChangePasswordFreeDays: 50
   siteMainUri: http://localhost:8024/
   siteName: 인스타
   emailFrom: no-reply@localhost

@@ -379,7 +379,7 @@ public class Util {
         }
     }
 
-    public static String getDateStrLater(int seconds) {
+    public static String getDateStrLater(long seconds) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateStr = format.format(System.currentTimeMillis() + seconds * 1000);
