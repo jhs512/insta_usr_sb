@@ -3,6 +3,7 @@ package com.sbs.untactTeacher.controller;
 import com.sbs.untactTeacher.dto.Article;
 import com.sbs.untactTeacher.dto.Board;
 import com.sbs.untactTeacher.dto.ResultData;
+import com.sbs.untactTeacher.dto.Rq;
 import com.sbs.untactTeacher.service.ArticleService;
 import com.sbs.untactTeacher.util.Util;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,9 @@ public class MpaUsrArticleController {
             return Util.msgAndBack(req, "내용을 입력해주세요.");
         }
 
-        int memberId = 3; // 임시
+        Rq rq = (Rq)req.getAttribute("rq");
+
+        int memberId = rq.getLoginedMemberId();
 
         ResultData writeArticleRd = articleService.writeArticle(boardId, memberId, title, body);
 
