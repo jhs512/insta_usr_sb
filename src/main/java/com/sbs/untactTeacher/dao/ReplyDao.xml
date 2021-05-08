@@ -8,6 +8,17 @@
         SELECT LAST_INSERT_ID()
     </select>
 
+    <select id="getReplyById" resultType="Reply">
+        SELECT R.*,
+        IFNULL(M.nickname, "삭제된_회원") AS extra__writerName
+        FROM reply AS R
+        LEFT JOIN `member` AS M
+        ON R.memberId = M.id
+        WHERE R.id = #{id}
+        AND R.delStatus = 0
+        ORDER BY R.id DESC
+    </select>
+
     <select id="getForPrintRepliesByRelTypeCodeAndRelId" resultType="Reply">
         SELECT R.*,
         IFNULL(M.nickname, "삭제된_회원") AS extra__writerName
@@ -29,6 +40,13 @@
         memberId = #{memberId},
         body = #{body}
     </insert>
+
+    <update id="delete">
+        UPDATE reply
+        SET delDate = NOW(),
+        delStatus = 1
+        WHERE id = #{id}
+    </update>
 
 </mapper>
 

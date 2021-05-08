@@ -23,4 +23,14 @@ public class ReplyService {
     public List<Reply> getForPrintRepliesByRelTypeCodeAndRelId(String relTypeCode, int relId) {
         return replyDao.getForPrintRepliesByRelTypeCodeAndRelId(relTypeCode, relId);
     }
+
+    public Reply getReplyById(int id) {
+        return replyDao.getReplyById(id);
+    }
+
+    public ResultData delete(int id) {
+        replyDao.delete(id);
+
+        return new ResultData("S-1", id + "번 댓글이 삭제되었습니다.", "id", id);
+    }
 }

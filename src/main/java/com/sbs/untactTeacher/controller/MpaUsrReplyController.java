@@ -1,6 +1,7 @@
 package com.sbs.untactTeacher.controller;
 
 import com.sbs.untactTeacher.dto.Article;
+import com.sbs.untactTeacher.dto.Reply;
 import com.sbs.untactTeacher.dto.ResultData;
 import com.sbs.untactTeacher.dto.Rq;
 import com.sbs.untactTeacher.service.ArticleService;
@@ -21,8 +22,27 @@ public class MpaUsrReplyController {
     @Autowired
     private ReplyService replyService;
 
+    @RequestMapping("/mpaUsr/reply/doDelete")
+    public String doDelete(HttpServletRequest req, int id, String redirectUri) {
+        Reply reply = replyService.getReplyById(id);
+
+        if ( reply == null ) {
+            return Util.msgAndBack(req, "존재하지 않는 댓글입니다.");
+        }
+
+        Rq rq = (Rq)req.getAttribute("rq");
+
+        if ( reply.getMemberId() != rq.getLoginedMemberId() ) {
+            return Util.msgAndBack(req, "권한이 없습니다.");
+        }
+
+        ResultData deleteResultData = replyService.delete(id);
+
+        return Util.msgAndReplace(req, deleteResultData.getMsg(), redirectUri);
+    }
+
     @RequestMapping("/mpaUsr/reply/doWrite")
-    public String showWrite(HttpServletRequest req, String relTypeCode, int relId, String body, String redirectUri) {
+    public String doWrite(HttpServletRequest req, String relTypeCode, int relId, String body, String redirectUri) {
         switch ( relTypeCode ) {
             case "article":
                 Article article = articleService.getArticleById(relId);

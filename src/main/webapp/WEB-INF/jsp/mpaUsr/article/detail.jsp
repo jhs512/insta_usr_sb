@@ -138,7 +138,7 @@
                             </div>
                             <div class="plain-link-wrap gap-3 mt-3">
                                 <c:if test="${reply.memberId == rq.loginedMemberId}">
-                                    <a onclick="if ( !confirm('정말 삭제하시겠습니까?') ) return false;" href="../reply/doDelete?id=${reply.id}" class="plain-link">
+                                    <a onclick="if ( !confirm('정말 삭제하시겠습니까?') ) return false;" href="../reply/doDelete?id=${reply.id}&redirectUri=${rq.encodedCurrentUri}" class="plain-link">
                                         <span><i class="fas fa-trash-alt"></i></span>
                                         <span>글 삭제</span>
                                     </a>
