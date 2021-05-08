@@ -198,6 +198,22 @@ CREATE TABLE `reply` (
     updateDate DATETIME NOT NULL COMMENT '수정날짜',
     relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입',
     relId INT(10) UNSIGNED NOT NULL COMMENT '관련 데이터 ID',
+    parentId INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '부모댓글 ID',
     memberId INT(10) UNSIGNED NOT NULL COMMENT '회원 ID',
-    `body` TEXT NOT NULL COMMENT '내용'
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
+    delDate DATETIME COMMENT '삭제날짜',
+    `body` TEXT NOT NULL COMMENT '내용',
+    blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',
+    blindDate DATETIME COMMENT '블라인드날짜',
+    hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '조회수',
+    repliesCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '댓글수',
+    likeCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '좋아요수',
+    dislikeCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '싫어요수'
 );
+
+# 특정 데이터에 관련된 댓글을 읽어는 속도를 빠르게 하기위해
+# 인덱스를 건다.
+ALTER TABLE `reply` ADD KEY (`relTypeCode`, `relId`);
+
+
+SELECT * FROM reply

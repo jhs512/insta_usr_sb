@@ -1,7 +1,10 @@
 package com.sbs.untactTeacher.dao;
 
+import com.sbs.untactTeacher.dto.Reply;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface ReplyDao {
@@ -11,4 +14,8 @@ public interface ReplyDao {
                @Param("body") String body);
 
     int getLastInsertId();
+
+    List<Reply> getForPrintRepliesByRelTypeCodeAndRelId(
+            @Param("relTypeCode") String relTypeCode,
+            @Param("relId") int relId);
 }

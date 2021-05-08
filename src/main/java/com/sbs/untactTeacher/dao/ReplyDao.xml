@@ -8,6 +8,18 @@
         SELECT LAST_INSERT_ID()
     </select>
 
+    <select id="getForPrintRepliesByRelTypeCodeAndRelId" resultType="Reply">
+        SELECT R.*,
+        IFNULL(M.nickname, "삭제된_회원") AS extra__writerName
+        FROM reply AS R
+        LEFT JOIN `member` AS M
+        ON R.memberId = M.id
+        WHERE R.relTypeCode = #{relTypeCode}
+        AND R.relId = #{relId}
+        AND R.delStatus = 0
+        ORDER BY R.id DESC
+    </select>
+
     <insert id="write">
         INSERT INTO reply
         SET regDate = NOW(),
