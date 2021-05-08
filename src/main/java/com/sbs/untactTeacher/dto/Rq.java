@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Rq {
     private String currentUrl;
+    @Getter
     private String currentUri;
     private Member loginedMember;
     private Map<String, String> paramMap;
@@ -43,7 +44,7 @@ public class Rq {
         return Util.getUriEncoded(getCurrentUri());
     }
 
-    private String getCurrentUri() {
+    public String getCurrentUri() {
         return currentUri;
     }
 

@@ -300,7 +300,7 @@ public class Util {
         return Pattern.matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{4,19}$", str);
     }
 
-    public static String getNewUrlRemoved(String uri, String paramName) {
+    public static String getNewUriRemoved(String uri, String paramName) {
         String deleteStrStarts = paramName + "=";
         int delStartPos = uri.indexOf(deleteStrStarts);
 
@@ -327,7 +327,7 @@ public class Util {
     }
 
     public static String getNewUri(String uri, String paramName, String paramValue) {
-        uri = getNewUrlRemoved(uri, paramName);
+        uri = getNewUriRemoved(uri, paramName);
 
         if (uri.contains("?")) {
             uri += "&" + paramName + "=" + paramValue;

@@ -190,3 +190,14 @@ ALTER TABLE `attr` ADD INDEX (`relTypeCode`, `typeCode`, `type2Code`);
 
 # attr에 만료날짜 추가
 ALTER TABLE `attr` ADD COLUMN `expireDate` DATETIME NULL AFTER `value`;
+
+# 댓글 테이블 생성
+CREATE TABLE `reply` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '번호',
+    regDate DATETIME NOT NULL COMMENT '작성날짜',
+    updateDate DATETIME NOT NULL COMMENT '수정날짜',
+    relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입',
+    relId INT(10) UNSIGNED NOT NULL COMMENT '관련 데이터 ID',
+    memberId INT(10) UNSIGNED NOT NULL COMMENT '회원 ID',
+    `body` TEXT NOT NULL COMMENT '내용'
+);
