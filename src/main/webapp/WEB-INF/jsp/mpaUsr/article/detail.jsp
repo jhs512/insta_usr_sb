@@ -80,7 +80,9 @@
                 <h1 class="title-bar-type-2 px-4">댓글</h1>
 
                 <c:if test="${rq.notLogined}">
-                    글 작성은 <a href="${rq.loginPageUri}">로그인</a> 후 이용할 수 있습니다.
+                    <div class="text-center py-4">
+                        글 작성은 <a class="plain-link" href="${rq.loginPageUri}">로그인</a> 후 이용할 수 있습니다.
+                    </div>
                 </c:if>
                 <c:if test="${rq.logined}">
                     <div class="px-4 py-8">
@@ -122,12 +124,12 @@
                                     ${reply.bodyForPrint}
                                 </div>
                                 <div class="mt-1">
-                                    <span>
-                                        <span>업</span>
+                                    <span class="text-gray-400 cursor-pointer">
+                                        <span><i class="fas fa-thumbs-up"></i></span>
                                         <span>5,600</span>
                                     </span>
-                                    <span class="ml-1">
-                                        <span>다</span>
+                                    <span class="ml-1 text-gray-400 cursor-pointer">
+                                        <span><i class="fas fa-thumbs-down"></i></span>
                                         <span>5,600</span>
                                     </span>
                                 </div>
