@@ -215,5 +215,16 @@ CREATE TABLE `reply` (
 # 인덱스를 건다.
 ALTER TABLE `reply` ADD KEY (`relTypeCode`, `relId`);
 
-
-SELECT * FROM reply
+# 임시로 만들어진 회원은, 비번변경할 필요가 없도록 설정
+INSERT INTO attr (
+    regDate,
+	updateDate,
+	relTypeCode,
+	relId,
+	typeCode,
+	type2Code,
+	`value`,
+	expireDate
+)
+SELECT NOW(), NOW(), 'member', id, 'extra', 'needToChangePassword', 0, NULL
+FROM `member`
