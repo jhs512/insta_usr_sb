@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,26 @@ public class MpaUsrReplyController {
     private ArticleService articleService;
     @Autowired
     private ReplyService replyService;
+
+    @RequestMapping("/mpaUsr/reply/doDeleteAjax")
+    @ResponseBody
+    public ResultData doDeleteAjax(HttpServletRequest req, int id, String redirectUri) {
+        Reply reply = replyService.getReplyById(id);
+
+        if ( reply == null ) {
+            return new ResultData("F-1", "존재하지 않는 댓글입니다.");
+        }
+
+        Rq rq = (Rq)req.getAttribute("rq");
+
+        if ( reply.getMemberId() != rq.getLoginedMemberId() ) {
+            return new ResultData("F-1", "권한이 없습니다.");
+        }
+
+        ResultData deleteResultData = replyService.delete(id);
+
+        return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", id));
+    }
 
     @RequestMapping("/mpaUsr/reply/doDelete")
     public String doDelete(HttpServletRequest req, int id, String redirectUri) {

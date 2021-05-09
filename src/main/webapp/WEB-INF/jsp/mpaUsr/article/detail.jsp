@@ -7,37 +7,6 @@
 
 <%@ include file="../common/head.jspf"%>
 
-<style>
-.reply-list [data-id] {
-  transition: background-color 1s;
-}
-
-.reply-list [data-id].focus {
-  background-color:#efefef;
-  transition: background-color 0s;
-}
-</style>
-
-<script>
-function ReplyList__goToReply(id) {
-    setTimeout(function() {
-        const $target = $('.reply-list [data-id="' + id + '"]');
-        const targetOffset = $target.offset();
-        $(window).scrollTop(targetOffset.top - 50);
-        $target.addClass('focus');
-
-        setTimeout(function() {
-            $target.removeClass('focus');
-        }, 1000);
-
-    }, 1000);
-}
-
-if ( param.focusReplyId ) {
-    ReplyList__goToReply(param.focusReplyId);
-}
-</script>
-
 <div class="section section-article-detail">
 	<div class="container mx-auto">
 	    <div class="card bordered shadow-lg item-bt-1-not-last-child">
@@ -157,6 +126,65 @@ if ( param.focusReplyId ) {
                 </c:if>
 
                 <!-- 댓글 리스트 -->
+                <style>
+                .reply-list [data-id] {
+                  transition: background-color 1s;
+                }
+
+                .reply-list [data-id].focus {
+                  background-color:#efefef;
+                  transition: background-color 0s;
+                }
+                </style>
+
+                <script>
+                function ReplyList__goToReply(id) {
+                    setTimeout(function() {
+                        const $target = $('.reply-list [data-id="' + id + '"]');
+                        const targetOffset = $target.offset();
+                        $(window).scrollTop(targetOffset.top - 50);
+                        $target.addClass('focus');
+
+                        setTimeout(function() {
+                            $target.removeClass('focus');
+                        }, 1000);
+
+                    }, 1000);
+                }
+
+                function ReplyList__deleteReply(btn) {
+                    const $clicked = $(btn);
+                    const $target = $clicked.closest('[data-id]');
+                    const id = $target.attr('data-id');
+
+                    $clicked.text('삭제중...');
+
+                    $.post(
+                        '../reply/doDeleteAjax',
+                        {
+                            id: id
+                        },
+                        function(data) {
+                            if ( data.success ) {
+                                $target.remove();
+                            }
+                            else {
+                                if ( data.msg ) {
+                                    alert(data.msg);
+                                }
+                                $clicked.text('삭제실패!!');
+                            }
+                        },
+                        'json'
+                    );
+
+                }
+
+                if ( param.focusReplyId ) {
+                    ReplyList__goToReply(param.focusReplyId);
+                }
+                </script>
+
                 <div class="reply-list">
                     <c:forEach items="${replies}" var="reply">
                         <div data-id="${reply.id}" class="py-5 px-4">
@@ -189,7 +217,7 @@ if ( param.focusReplyId ) {
                             </div>
                             <div class="plain-link-wrap gap-3 mt-3 pl-14">
                                 <c:if test="${reply.memberId == rq.loginedMemberId}">
-                                    <a onclick="if ( !confirm('정말 삭제하시겠습니까?') ) return false;" href="../reply/doDelete?id=${reply.id}&redirectUri=${rq.encodedCurrentUri}" class="plain-link">
+                                    <a onclick="if ( confirm('정말 삭제하시겠습니까?') ) { ReplyList__deleteReply(this); } return false;" class="plain-link">
                                         <span><i class="fas fa-trash-alt"></i></span>
                                         <span>글 삭제</span>
                                     </a>
