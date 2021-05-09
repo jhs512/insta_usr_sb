@@ -28,6 +28,10 @@
 <link rel="stylesheet" href="/resource/common.css" />
 <script src="/resource/common.js" defer></script>
 <title>INSTA</title>
+
+<script>
+const param = ${rq.paramJsonStr};
+</script>
 </head>
 <body>
 	<div class="site-wrap">

@@ -7,6 +7,37 @@
 
 <%@ include file="../common/head.jspf"%>
 
+<style>
+.reply-list [data-id] {
+  transition: background-color 1s;
+}
+
+.reply-list [data-id].focus {
+  background-color:#efefef;
+  transition: background-color 0s;
+}
+</style>
+
+<script>
+function ReplyList__goToReply(id) {
+    setTimeout(function() {
+        const $target = $('.reply-list [data-id="' + id + '"]');
+        const targetOffset = $target.offset();
+        $(window).scrollTop(targetOffset.top - 50);
+        $target.addClass('focus');
+
+        setTimeout(function() {
+            $target.removeClass('focus');
+        }, 1000);
+
+    }, 1000);
+}
+
+if ( param.focusReplyId ) {
+    ReplyList__goToReply(param.focusReplyId);
+}
+</script>
+
 <div class="section section-article-detail">
 	<div class="container mx-auto">
 	    <div class="card bordered shadow-lg item-bt-1-not-last-child">
@@ -87,7 +118,27 @@
                 <c:if test="${rq.logined}">
                     <div class="px-4 py-8">
                         <!-- 댓글 입력 시작 -->
-                        <form method="POST" action="../reply/doWrite" class="relative flex py-4 text-gray-600 focus-within:text-gray-400">
+                        <script>
+                        let ReplyWrite__submitFormDone = false;
+                        function ReplyWrite__submitForm(form) {
+                            if ( ReplyWrite__submitFormDone ) {
+                                return;
+                            }
+
+                            form.body.value = form.body.value.trim();
+
+                            if ( form.body.value.length == 0 ) {
+                                alert('내용을 입력해주세요.');
+                                form.body.focus();
+
+                                return;
+                            }
+
+                            form.submit();
+                            ReplyWrite__submitFormDone = true;
+                        }
+                        </script>
+                        <form method="POST" action="../reply/doWrite" class="relative flex py-4 text-gray-600 focus-within:text-gray-400" onsubmit="ReplyWrite__submitForm(this); return false;">
                             <input type="hidden" name="relTypeCode" value="article" />
                             <input type="hidden" name="relId" value="${article.id}" />
                             <input type="hidden" name="redirectUri" value="${rq.currentUri}" />
@@ -106,9 +157,9 @@
                 </c:if>
 
                 <!-- 댓글 리스트 -->
-                <div>
+                <div class="reply-list">
                     <c:forEach items="${replies}" var="reply">
-                        <div class="py-5 px-4">
+                        <div data-id="${reply.id}" class="py-5 px-4">
                             <div class="flex">
                                 <!-- 아바타 이미지 -->
                                 <div class="flex-shrink-0">
@@ -136,7 +187,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="plain-link-wrap gap-3 mt-3">
+                            <div class="plain-link-wrap gap-3 mt-3 pl-14">
                                 <c:if test="${reply.memberId == rq.loginedMemberId}">
                                     <a onclick="if ( !confirm('정말 삭제하시겠습니까?') ) return false;" href="../reply/doDelete?id=${reply.id}&redirectUri=${rq.encodedCurrentUri}" class="plain-link">
                                         <span><i class="fas fa-trash-alt"></i></span>
