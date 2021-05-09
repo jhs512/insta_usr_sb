@@ -6,6 +6,8 @@ import lombok.Getter;
 import java.util.Map;
 
 public class Rq {
+    @Getter
+    private boolean isAjax;
     private String currentUrl;
     @Getter
     private String currentUri;
@@ -14,7 +16,8 @@ public class Rq {
     @Getter
     private boolean needToChangePassword;
 
-    public Rq(Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
+    public Rq(boolean isAjax, Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
+        this.isAjax = isAjax;
         this.loginedMember = loginedMember;
         this.currentUrl = currentUri.split("\\?")[0];
         this.currentUri = currentUri;

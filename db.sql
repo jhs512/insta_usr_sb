@@ -227,4 +227,41 @@ INSERT INTO attr (
 	expireDate
 )
 SELECT NOW(), NOW(), 'member', id, 'extra', 'needToChangePassword', 0, NULL
-FROM `member`
+FROM `member`;
+
+# 댓글 테스트 데이터 생성
+## 1번 댓글 생성
+INSERT INTO `reply`
+SET regDate = NOW(),
+updateDate = NOW(),
+relTypeCode = 'article',
+relId = 1,
+memberId = 1,
+`body` = '댓글1';
+
+## 2번 댓글 생성
+INSERT INTO `reply`
+SET regDate = NOW(),
+updateDate = NOW(),
+relTypeCode = 'article',
+relId = 1,
+memberId = 1,
+`body` = '댓글2';
+
+## 3번 댓글 생성
+INSERT INTO `reply`
+SET regDate = NOW(),
+updateDate = NOW(),
+relTypeCode = 'article',
+relId = 1,
+memberId = 2,
+`body` = '댓글3';
+
+## 4번 댓글 생성
+INSERT INTO `reply`
+SET regDate = NOW(),
+updateDate = NOW(),
+relTypeCode = 'article',
+relId = 2,
+memberId = 2,
+`body` = '댓글4';
