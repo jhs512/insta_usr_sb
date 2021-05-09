@@ -222,6 +222,12 @@
                                         <span>글 삭제</span>
                                     </a>
                                 </c:if>
+                                <c:if test="${reply.memberId == rq.loginedMemberId}">
+                                    <a href="../reply/modify?id=${reply.id}&redirectUri=${rq.encodedCurrentUri}" class="plain-link">
+                                        <span><i class="far fa-edit"></i></span>
+                                        <span>글 수정</span>
+                                    </a>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>

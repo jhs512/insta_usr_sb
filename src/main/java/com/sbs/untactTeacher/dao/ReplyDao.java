@@ -22,4 +22,7 @@ public interface ReplyDao {
     Reply getReplyById(@Param("id") int id);
 
     void delete(@Param("id") int id);
+
+    void modify(@Param("id") int id,
+                @Param("body") String body);
 }

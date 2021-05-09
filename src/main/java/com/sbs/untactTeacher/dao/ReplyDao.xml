@@ -41,6 +41,15 @@
         body = #{body}
     </insert>
 
+    <update id="modify">
+        UPDATE reply
+        <set>
+            updateDate = NOW(),
+            body = #{body},
+        </set>
+        WHERE id = #{id}
+    </update>
+
     <update id="delete">
         UPDATE reply
         SET delDate = NOW(),

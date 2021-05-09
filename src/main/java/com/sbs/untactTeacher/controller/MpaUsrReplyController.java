@@ -23,6 +23,56 @@ public class MpaUsrReplyController {
     @Autowired
     private ReplyService replyService;
 
+    @RequestMapping("/mpaUsr/reply/modify")
+    public String showModify(HttpServletRequest req, int id, String redirectUri) {
+        Reply reply = replyService.getReplyById(id);
+
+        if ( reply == null ) {
+            return Util.msgAndBack(req, "존재하지 않는 댓글입니다.");
+        }
+
+        Rq rq = (Rq)req.getAttribute("rq");
+
+        if ( reply.getMemberId() != rq.getLoginedMemberId() ) {
+            return Util.msgAndBack(req, "권한이 없습니다.");
+        }
+
+        req.setAttribute("reply", reply);
+
+        String title = "";
+
+        switch ( reply.getRelTypeCode() ) {
+            case "article":
+                Article article = articleService.getArticleById(reply.getRelId());
+                title = article.getTitle();
+        }
+
+        req.setAttribute("title", title);
+
+        return "mpaUsr/reply/modify";
+    }
+
+    @RequestMapping("/mpaUsr/reply/doModify")
+    public String doModify(HttpServletRequest req, int id, String body, String redirectUri) {
+        Reply reply = replyService.getReplyById(id);
+
+        if ( reply == null ) {
+            return Util.msgAndBack(req, "존재하지 않는 댓글입니다.");
+        }
+
+        Rq rq = (Rq)req.getAttribute("rq");
+
+        if ( reply.getMemberId() != rq.getLoginedMemberId() ) {
+            return Util.msgAndBack(req, "권한이 없습니다.");
+        }
+
+        ResultData modifyResultData = replyService.modify(id, body);
+
+        redirectUri = Util.getNewUri(redirectUri, "focusReplyId", id + "");
+
+        return Util.msgAndReplace(req, modifyResultData.getMsg(), redirectUri);
+    }
+
     @RequestMapping("/mpaUsr/reply/doDeleteAjax")
     @ResponseBody
     public ResultData doDeleteAjax(HttpServletRequest req, int id, String redirectUri) {
