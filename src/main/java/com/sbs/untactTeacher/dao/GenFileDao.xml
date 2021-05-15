@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sbs.untactTeacher.dao.GenFileDao">
+    <insert id="saveMeta" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO genFile
+        SET regDate = NOW(),
+        updateDate = NOW(),
+        relTypeCode
+        = #{relTypeCode},
+        relId = #{relId},
+        typeCode = #{typeCode},
+        type2Code =
+        #{type2Code},
+        fileNo = #{fileNo},
+        originFileName = #{originFileName},
+        fileExtTypeCode = #{fileExtTypeCode},
+        fileExtType2Code =
+        #{fileExtType2Code},
+        fileSize = #{fileSize},
+        fileDir = #{fileDir},
+        fileExt = #{fileExt}
+    </insert>
+
+    <select id="getGenFile" resultType="GenFile">
+        SELECT *
+        FROM genFile
+        WHERE 1
+        <if test="relTypeCode != null">
+            AND relTypeCode = #{relTypeCode}
+        </if>
+        <if test="relId != null">
+            AND relId = #{relId}
+        </if>
+        <if test="typeCode != null">
+            AND typeCode = #{typeCode}
+        </if>
+        <if test="type2Code != null">
+            AND type2Code = #{type2Code}
+        </if>
+        <if test="fileNo != null">
+            AND fileNo = #{fileNo}
+        </if>
+    </select>
+
+    <select id="getGenFileById" resultType="GenFile">
+        SELECT *
+        FROM genFile
+        WHERE 1
+        AND id = #{id}
+    </select>
+
+    <select id="getGenFiles" resultType="GenFile">
+        SELECT *
+        FROM genFile
+        WHERE 1
+        AND relTypeCode = #{relTypeCode}
+        AND relId =
+        #{relId}
+        <if test="typeCode != null">
+            AND typeCode = #{typeCode}
+        </if>
+        <if test="type2Code != null">
+            AND type2Code = #{type2Code}
+        </if>
+        ORDER BY typeCode, type2Code, fileNo
+    </select>
+
+    <select id="getGenFilesByRelTypeCodeAndRelId"
+            resultType="GenFile">
+        SELECT *
+        FROM genFile
+        WHERE 1
+        AND relTypeCode = #{relTypeCode}
+        AND relId = #{relId}
+        ORDER BY typeCode, type2Code, fileNo
+    </select>
+
+    <select
+            id="getGenFilesRelTypeCodeAndRelIdsAndTypeCodeAndType2Code"
+            resultType="GenFile">
+        SELECT *
+        FROM genFile
+        WHERE 1
+        <if test="relIds != null and relIds.size > 0">
+            AND relId IN
+            <foreach item="relId" index="index" collection="relIds"
+                     open="(" separator="," close=")">
+                #{relId}
+            </foreach>
+        </if>
+        AND relTypeCode = #{relTypeCode}
+        AND typeCode = #{typeCode}
+        AND
+        type2Code = #{type2Code}
+        ORDER BY relId, fileNo
+    </select>
+
+    <update id="changeRelId">
+        UPDATE genFile
+        <set>
+            updateDate = NOW(),
+            relId = #{relId}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteFiles">
+        DELETE FROM genFile
+        WHERE relTypeCode = #{relTypeCode}
+        AND relId = #{relId}
+    </delete>
+
+    <delete id="deleteFile">
+        DELETE FROM genFile
+        WHERE id = #{id}
+    </delete>
+</mapper>

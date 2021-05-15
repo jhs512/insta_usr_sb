@@ -1,6 +1,10 @@
 server:
   port: 8024
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   mail:
     host: smtp.gmail.com
     port: 587
@@ -25,6 +29,7 @@ spring:
 mybatis:
   type-aliases-package: com.sbs.untactTeacher.dto
 custom:
+  genFileDirPath: C:/work/insta-usr-sb-file
   needToChangePasswordFreeDays: 50
   siteMainUri: http://localhost:8024/
   siteName: 인스타
