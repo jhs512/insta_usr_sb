@@ -68,6 +68,21 @@ function MemberJoin__submitForm(form) {
         return;
     }
 
+    const maxSizeMb = 0;
+
+    const maxSize = maxSizeMb * 1024 * 1024;
+
+    const profileImgFileInput = form["file__member__0__extra__profileImg__1"];
+
+    if (profileImgFileInput.value) {
+        if (profileImgFileInput.files[0].size > maxSize) {
+            alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+            profileImgFileInput.focus();
+
+            return;
+        }
+    }
+
     form.cellphoneNo.value = form.cellphoneNo.value.trim();
 
     if ( form.cellphoneNo.value.length == 0 ) {
