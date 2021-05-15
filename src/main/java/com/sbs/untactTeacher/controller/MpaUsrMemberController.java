@@ -42,7 +42,7 @@ public class MpaUsrMemberController {
 
     @RequestMapping("/mpaUsr/member/doModify")
     public String doModify(HttpServletRequest req, String loginPw, String name, String
-            nickname, String cellphoneNo, String email, String checkPasswordAuthCode) {
+            nickname, String cellphoneNo, String email, String checkPasswordAuthCode, MultipartRequest multipartRequest) {
 
         Member loginedMember = ((Rq) req.getAttribute("rq")).getLoginedMember();
         ResultData checkValidCheckPasswordAuthCodeResultData = memberService
@@ -61,6 +61,16 @@ public class MpaUsrMemberController {
 
         if (modifyRd.isFail()) {
             return Util.msgAndBack(req, modifyRd.getMsg());
+        }
+
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+
+        for (String fileInputName : fileMap.keySet()) {
+            MultipartFile multipartFile = fileMap.get(fileInputName);
+
+            if ( multipartFile.isEmpty() == false ) {
+                genFileService.save(multipartFile, loginedMember.getId());
+            }
         }
 
         return Util.msgAndReplace(req, modifyRd.getMsg(), "/");

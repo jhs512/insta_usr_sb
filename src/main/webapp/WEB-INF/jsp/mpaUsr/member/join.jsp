@@ -68,7 +68,7 @@ function MemberJoin__submitForm(form) {
         return;
     }
 
-    const maxSizeMb = 0;
+    const maxSizeMb = 10;
 
     const maxSize = maxSizeMb * 1024 * 1024;
 
@@ -154,7 +154,7 @@ function MemberJoin__submitForm(form) {
                 <label class="label">
                     프로필 이미지
                 </label>
-                <input type="file" name="file__member__0__extra__profileImg__1" placeholder="프로필 이미지를 선택해주세요." />
+                <input accept="image/gif, image/jpeg, image/png" type="file" name="file__member__0__extra__profileImg__1" placeholder="프로필 이미지를 선택해주세요." />
             </div>
 
             <div class="form-control">
