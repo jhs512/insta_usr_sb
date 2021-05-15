@@ -42,15 +42,18 @@
                         </div>
                     </div>
 
+                    <div class="mt-3">
+                        <span class="badge badge-accent">작성자</span>
+                        <div class="mt-2">
+                            <img class="w-40 h-40 object-cover rounded" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" src="${article.writerProfileImgUri}" alt="">
+                            <span>${article.extra__writerName}</span>
+                        </div>
+                    </div>
+
                     <div class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                         <div>
                             <span class="badge badge-primary">번호</span>
                             <span>${article.id}</span>
-                        </div>
-
-                        <div>
-                            <span class="badge badge-accent">작성자</span>
-                            <span>${article.extra__writerName}</span>
                         </div>
 
                         <div>

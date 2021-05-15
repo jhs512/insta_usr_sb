@@ -15,7 +15,7 @@
             <div class="px-4 py-8">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     <a href="#" class="row-span-3 order-1">
-                        <img class="rounded-full" src="https://i.pravatar.cc/100?img=37" alt="">
+                        <img class="w-40 h-40 object-cover rounded-full" onerror="${rq.loginedMember.profileFallbackImgOnErrorHtmlAttr}" src="${rq.loginedMember.profileImgUri}" alt="">
                     </a>
 
                     <a href="#" class="order-2 hover:underline">

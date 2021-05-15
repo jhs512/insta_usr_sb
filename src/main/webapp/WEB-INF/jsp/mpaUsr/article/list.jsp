@@ -111,7 +111,7 @@
 
                             <div class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                                 <a href="${detailUri}" class="row-span-7">
-                                    <img class="rounded" src="https://i.pravatar.cc/250?img=37" alt="">
+                                    <img class="w-40 h-40 object-cover rounded" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" src="${article.writerProfileImgUri}" alt="">
                                 </a>
 
                                 <a href="${detailUri}" class="hover:underline">
