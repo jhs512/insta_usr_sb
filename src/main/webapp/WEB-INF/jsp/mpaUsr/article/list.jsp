@@ -102,18 +102,17 @@
                         <c:set var="detailUri" value="../article/detail?id=${article.id}" />
                         <!-- 게시물 아이템, first -->
                         <div class="px-4 py-8">
-                            <a href="${detailUri}" class="hover:underline cursor-pointer">
-                                <span class="badge badge-outline">제목</span>
-                                <div class="line-clamp-3">
-                                    ${article.title}
-                                </div>
-                            </a>
-
-                            <div class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                                <a href="${detailUri}" class="row-span-7">
-                                    <img class="w-40 h-40 object-cover rounded" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" src="${article.writerProfileImgUri}" alt="">
+                            <div class="grid gap-3" style="grid-template-columns: 100px 1fr;">
+                                <a href="${detailUri}">
+                                    <img class="w-full object-cover rounded-full" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" src="${article.writerProfileImgUri}" alt="">
                                 </a>
+                                <a href="${detailUri}" class="hover:underline cursor-pointer">
+                                    <span class="badge badge-outline">제목</span>
+                                    <div class="line-clamp-3">${article.title}</div>
+                                </a>
+                            </div>
 
+                            <div class="mt-3 grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
                                 <a href="${detailUri}" class="hover:underline">
                                     <span class="badge badge-primary">번호</span>
                                     <span>${article.id}</span>
