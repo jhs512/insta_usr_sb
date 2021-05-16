@@ -58,6 +58,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/mpaUsr/member/doFindLoginPw")
                 .addPathPatterns("/mpaUsr/member/login")
                 .addPathPatterns("/mpaUsr/member/doLogin")
+                .addPathPatterns("/mpaUsr/member/getLoginIdDup")
                 .addPathPatterns("/mpaUsr/member/join")
                 .addPathPatterns("/mpaUsr/member/doJoin")
                 .addPathPatterns("/mpaUsr/member/findLoginId")

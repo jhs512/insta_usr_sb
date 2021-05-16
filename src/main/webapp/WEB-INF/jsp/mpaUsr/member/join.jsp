@@ -10,6 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <script>
+let MemberJoin__validLoginId = "";
 let MemberJoin__submitFormDone = false;
 function MemberJoin__submitForm(form) {
     if ( MemberJoin__submitFormDone ) {
@@ -20,6 +21,20 @@ function MemberJoin__submitForm(form) {
 
     if ( form.loginId.value.length == 0 ) {
         alert('로그인아이디를 입력해주세요.');
+        form.loginId.focus();
+
+        return;
+    }
+
+    if ( form.loginId.value.length <= 4 ) {
+        alert('로그인아이디를 5자 이상으로 입력해주세요.');
+        form.loginId.focus();
+
+        return;
+    }
+
+    if ( MemberJoin__validLoginId != form.loginId.value ) {
+        alert('해당 로그인아이디를 이용할 수 없습니다. 다른 로그인아이디를 입력해주세요.');
         form.loginId.focus();
 
         return;
@@ -109,6 +124,44 @@ function MemberJoin__submitForm(form) {
     form.submit();
     MemberJoin__submitFormDone = true;
 }
+
+function MemberJoin__checkLoginIdDup(el) {
+    const form = $(el).closest('form').get(0);
+
+    form.loginId.value = form.loginId.value.trim();
+
+    if ( form.loginId.value == MemberJoin__validLoginId ) {
+        return;
+    }
+
+    MemberJoin__validLoginId = "";
+    $('.login-id-input-success-msg').text('');
+    $('.login-id-input-success-msg').hide();
+
+    $('.login-id-input-error-msg').text('');
+    $('.login-id-input-error-msg').hide();
+
+    if ( form.loginId.value.length > 4 ) {
+        $.get(
+            "../member/getLoginIdDup",
+            {
+                loginId: form.loginId.value
+            },
+            function(data) {
+                if ( data.success ) {
+                    MemberJoin__validLoginId = data.body.loginId;
+                    $('.login-id-input-success-msg').text(data.msg);
+                    $('.login-id-input-success-msg').show();
+                }
+                else {
+                    $('.login-id-input-error-msg').text(data.msg);
+                    $('.login-id-input-error-msg').show();
+                }
+            },
+            "json"
+        );
+    }
+}
 </script>
 
 <div class="section section-join px-2">
@@ -119,7 +172,9 @@ function MemberJoin__submitForm(form) {
                 <label class="label">
                     로그인아이디
                 </label>
-                <input class="input input-bordered w-full" type="text" maxlength="30" name="loginId" placeholder="로그인아이디를 입력해주세요." />
+                <input onkeyup="MemberJoin__checkLoginIdDup(this);" class="input input-bordered w-full" type="text" maxlength="30" name="loginId" placeholder="로그인아이디를 입력해주세요." />
+                <div class="mt-2 text-red-500 login-id-input-error-msg"></div>
+                <div class="mt-2 text-green-500 login-id-input-success-msg"></div>
             </div>
 
             <div class="form-control">

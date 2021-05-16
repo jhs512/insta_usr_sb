@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
@@ -190,6 +191,18 @@ public class MpaUsrMemberController {
     @RequestMapping("/mpaUsr/member/join")
     public String showJoin(HttpServletRequest req) {
         return "mpaUsr/member/join";
+    }
+
+    @RequestMapping("/mpaUsr/member/getLoginIdDup")
+    @ResponseBody
+    public ResultData getLoginIdDup(HttpServletRequest req, String loginId) {
+        Member member = memberService.getMemberByLoginId(loginId);
+
+        if (member != null) {
+            return new ResultData("F-1", "해당 로그인아이디는 이미 사용중입니다.", "loginId", loginId);
+        }
+
+        return new ResultData("S-1", "사용가능한 로그인 아이디 입니다.", "loginId", loginId);
     }
 
     @RequestMapping("/mpaUsr/member/doJoin")
