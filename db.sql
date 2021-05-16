@@ -287,3 +287,13 @@ CREATE TABLE genFile (
   PRIMARY KEY (id),
   KEY relId (relTypeCode,relId,typeCode,type2Code,fileNo)
 );
+
+# 회원 테이블에 권한레벨 필드 추가
+ALTER TABLE `member`
+ADD COLUMN `authLevel` SMALLINT(2) UNSIGNED
+DEFAULT 3 NOT NULL COMMENT '(3=일반,7=관리자)' AFTER `loginPw`;
+
+# 1번 회원을 관리자로 지정
+UPDATE `member`
+SET authLevel = 7
+WHERE id = 1;

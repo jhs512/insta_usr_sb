@@ -3,11 +3,11 @@
 <%@ include file="../../common/head.jspf"%>
 <header class="top-bar top-bar--fly">
     <div class="container mx-auto flex h-full">
-        <a href="/" class="px-3 flex items-center">
+        <a href="/mpaAdm" class="px-3 flex items-center">
             <span>
                 <i class="fas fa-lemon"></i>
             </span>
-            <span class="hidden sm:block">&nbsp;INSTA</span>
+            <span class="hidden sm:block">&nbsp;INSTA ADMIN</span>
         </a>
 
         <div class="flex-grow"></div>
@@ -24,7 +24,6 @@
                     </a>
                 </li>
                 </c:if>
-                <c:if test="${rq.admin}">
                 <li>
                     <a href="/mpaAdm" class="h-full flex items-center px-5">
                         <span>
@@ -33,13 +32,12 @@
                         <span class="hidden sm:block">&nbsp;ADMIN HOME</span>
                     </a>
                 </li>
-                </c:if>
                 <li>
                     <a href="/" class="h-full flex items-center px-5">
                         <span>
                             <i class="fas fa-home"></i>
                         </span>
-                        <span class="hidden sm:block">&nbsp;HOME</span>
+                        <span class="hidden sm:block">&nbsp;SITE</span>
                     </a>
                 </li>
                 <li>

@@ -8,6 +8,10 @@ import java.util.Map;
 public class Rq {
     @Getter
     private boolean isAjax;
+
+    @Getter
+    private boolean isAdmin;
+
     private String currentUrl;
     @Getter
     private String currentUri;
@@ -16,8 +20,9 @@ public class Rq {
     @Getter
     private boolean needToChangePassword;
 
-    public Rq(boolean isAjax, Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
+    public Rq(boolean isAjax, boolean isAdmin, Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
         this.isAjax = isAjax;
+        this.isAdmin = isAdmin;
         this.loginedMember = loginedMember;
         this.currentUrl = currentUri.split("\\?")[0];
         this.currentUri = currentUri;
@@ -27,6 +32,10 @@ public class Rq {
 
     public String getParamJsonStr() {
         return Util.toJsonStr(paramMap);
+    }
+
+    public boolean isNotAdmin() {
+        return isAdmin == false;
     }
 
     public boolean isLogined() {
