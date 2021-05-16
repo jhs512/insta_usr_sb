@@ -54,6 +54,12 @@ function MemberModify__submitForm(form) {
         return;
     }
 
+    const deleteProfileImgFileInput = form["deleteFile__member__0__extra__profileImg__1"];
+
+    if ( deleteProfileImgFileInput.checked ) {
+        form["file__member__0__extra__profileImg__1"].value = '';
+    }
+
     const maxSizeMb = 10;
 
     const maxSize = maxSizeMb * 1024 * 1024;
@@ -146,8 +152,20 @@ function MemberModify__submitForm(form) {
                     프로필 이미지
                 </label>
                 <img class="w-40 h-40 mb-2 object-cover rounded-full" onerror="${rq.loginedMember.removeProfileImgIfNotExistsOnErrorHtmlAttr}" src="${rq.loginedMember.profileImgUri}" alt="">
+
+                <div>
+                    <label class="cursor-pointer label inline-flex">
+                        <span class="label-text mr-2">이미지 삭제</span>
+                        <div>
+                            <input type="checkbox" name="deleteFile__member__0__extra__profileImg__1" class="checkbox" value="Y">
+                            <span class="checkbox-mark"></span>
+                        </div>
+                    </label>
+                </div>
                 <input accept="image/gif, image/jpeg, image/png" type="file" name="file__member__0__extra__profileImg__1" placeholder="프로필 이미지를 선택해주세요." />
             </div>
+
+
 
             <div class="form-control">
                 <label class="label">

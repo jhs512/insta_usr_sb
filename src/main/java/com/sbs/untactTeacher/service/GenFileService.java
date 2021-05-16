@@ -192,6 +192,12 @@ public class GenFileService {
         }
     }
 
+    public void deleteGenFile(String relTypeCode, int relId, String typeCode, String type2Code, int fileNo) {
+        GenFile genFile = genFileDao.getGenFile(relTypeCode, relId, typeCode, type2Code, fileNo);
+
+        deleteGenFile(genFile);
+    }
+
     private void deleteGenFile(GenFile genFile) {
         String filePath = genFile.getFilePath(genFileDirPath);
         Util.deleteFile(filePath);
