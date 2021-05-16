@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -25,6 +26,15 @@ public class MpaAdmMemberController {
     private MemberService memberService;
     @Autowired
     private GenFileService genFileService;
+
+    @RequestMapping("/mpaAdm/member/list")
+    public String showList(HttpServletRequest req) {
+        List<Member> members = memberService.getForPrintMembers();
+
+        req.setAttribute("members", members);
+
+        return "mpaAdm/member/list";
+    }
 
     // checkPasswordAuthCode : 체크비밀번호인증코드
     @RequestMapping("/mpaAdm/member/modify")

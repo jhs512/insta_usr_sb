@@ -4,6 +4,8 @@ import com.sbs.untactTeacher.dto.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface MemberDao {
     Member getMemberByLoginId(@Param("loginId") String loginId);
@@ -17,4 +19,6 @@ public interface MemberDao {
     int getLastInsertId();
 
     Member getMemberByNameAndEmail(@Param("name") String name, @Param("email") String email);
+
+    List<Member> getForPrintMembers();
 }

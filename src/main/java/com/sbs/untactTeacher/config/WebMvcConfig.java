@@ -70,6 +70,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/mpaUsr/member/findLoginPw")
                 .addPathPatterns("/mpaUsr/member/doFindLoginPw");
 
+        // /mpaAdm/** 으로 시작하는 모든 URI에 대해서 관리자인지 체크
+        // 단 일부 URI는 체크를 안함
         registry.addInterceptor(needAdminInterceptor)
                 .addPathPatterns("/mpaAdm/**")
                 .excludePathPatterns("/mpaAdm/member/findLoginId")

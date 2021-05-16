@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -148,5 +149,9 @@ public class MemberService {
 
     public boolean needToChangePassword(int actorId) {
         return attrService.getValue("member", actorId, "extra", "needToChangePassword").equals("0") == false;
+    }
+
+    public List<Member> getForPrintMembers() {
+        return memberDao.getForPrintMembers();
     }
 }

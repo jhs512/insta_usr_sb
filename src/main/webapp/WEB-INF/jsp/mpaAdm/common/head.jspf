@@ -41,6 +41,14 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/mpaAdm/member/list" class="h-full flex items-center px-5">
+                        <span>
+                            <i class="fas fa-home"></i>
+                        </span>
+                        <span class="hidden sm:block">&nbsp;MEMBER LIST</span>
+                    </a>
+                </li>
+                <li>
                     <a href="#" class="h-full flex items-center px-5">
                         <span>
                             <i class="far fa-newspaper"></i>
