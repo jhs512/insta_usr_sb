@@ -11,6 +11,7 @@
 
 <script>
 let MemberJoin__validLoginId = "";
+let MemberJoin__lastDupCheckedLoginId = "";
 let MemberJoin__submitFormDone = false;
 function MemberJoin__submitForm(form) {
     if ( MemberJoin__submitFormDone ) {
@@ -130,7 +131,7 @@ function MemberJoin__checkLoginIdDup(el) {
 
     form.loginId.value = form.loginId.value.trim();
 
-    if ( form.loginId.value == MemberJoin__validLoginId ) {
+    if ( form.loginId.value == MemberJoin__lastDupCheckedLoginId ) {
         return;
     }
 
@@ -142,6 +143,8 @@ function MemberJoin__checkLoginIdDup(el) {
     $('.login-id-input-error-msg').hide();
 
     if ( form.loginId.value.length > 4 ) {
+        MemberJoin__lastDupCheckedLoginId = form.loginId.value;
+
         $.get(
             "../member/getLoginIdDup",
             {

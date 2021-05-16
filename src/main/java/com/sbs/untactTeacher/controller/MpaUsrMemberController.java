@@ -215,6 +215,12 @@ public class MpaUsrMemberController {
             return Util.msgAndBack(req, loginId + "(은)는 이미 사용중인 로그인아이디 입니다.");
         }
 
+        oldMember = memberService.getMemberByNameAndEmail(name, email);
+
+        if (oldMember != null) {
+            return Util.msgAndBack(req, String.format("%s님은 이미 %s 메일주소로 %s 에 가입하셨습니다.", name, email, oldMember.getRegDate()));
+        }
+
         ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
         if (joinRd.isFail()) {
